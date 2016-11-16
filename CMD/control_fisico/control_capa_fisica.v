@@ -1,5 +1,5 @@
 
-module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response, reception_complete, transmission_complete, ack_out, strobe_out, response, command_timeout, load_send, enable_pts_wrapper, enable_stp_wrapper, pad_state, pad_enable, reset, sd_clock);
+module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response, reception_complete, transmission_complete, ack_out, strobe_out, response, command_timeout, load_send, enable_pts_wrapper, enable_stp_wrapper, pad_state, pad_enable, reset, sd_clock, reset_wrapper);
 
 
    input           strobe_in;
@@ -19,11 +19,11 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
    output 	    load_send;
    output 	    enable_pts_wrapper;
    output 	    enable_stp_wrapper;
-   output           reset_wrapper
+   output           reset_wrapper;
    output 	    pad_state;
    output	    pad_enable;
 
-   inout            cmd_pin;
+  // inout            cmd_pin;
 
 
    wire           strobe_in;
@@ -31,22 +31,23 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
    wire           idle_in;
    wire           no_response;
    wire [135 : 0] pad_response;
-   wire 	   reception_complete;
-   wire 	   transmission_complete;
-   wire 	   reset;
-   wire 	   sd_clock;
+   wire 	  reception_complete;
+   wire 	  transmission_complete;
+   wire 	  reset;
+   wire 	  sd_clock;
 
    reg  	 ack_out;
    reg 	         strobe_out;
    reg [135 : 0] response;
    reg   	 command_timeout;
    reg 	         load_send;
+   reg		 reset_wrapper;
    reg 	         enable_pts_wrapper;
    reg 	         enable_stp_wrapper;
    reg 	         pad_state;
    reg	         pad_enable;
 
-   reg           cmd_pin;
+   //reg           cmd_pin;
 
    reg [7:0] 	 state = 8'b00000001; 		 
 
@@ -58,11 +59,11 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
    parameter send_command = 8'b00001000;
    parameter wait_response = 8'b00010000;
    parameter send_response = 8'b00100000;
-   parameter wait_ack = 8'b001000000;
+   parameter wait_ack = 8'b01000000;
    parameter send_ack = 8'b10000000;
 
 
-   always @(posedge clock) begin
+   always @(posedge sd_clock) begin
 
       case(state)
 
@@ -118,7 +119,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 		if (transmission_complete == 1) begin
 		   state <= wait_response;
 		end else begin
-		   state <= load_send;
+		   state <= send_command;
 		end
 	     end
 
@@ -155,7 +156,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 	  end // case: send_response
 	
 
-       wait_ack:                            // las salidas en estado bajo...
+       wait_ack:                        
 	 begin
 
 	     ack_out                <= 0;
@@ -192,6 +193,8 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
       
 
       end // always @ (posedge clock)
+endmodule
+
    
 	     
 	    
