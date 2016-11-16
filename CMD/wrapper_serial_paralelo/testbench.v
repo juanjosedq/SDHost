@@ -16,7 +16,7 @@ module testbench;                                // Se define un modulo de prueb
 
   probador valores (input_1, clk, enable, reset);
 
-  s_pn c1 (output_n, input_1, clk, enable, reset, push); 
+  wrapper_serial_paralelo c1 (output_n, input_1, clk, enable, reset, push); 
    
 
 endmodule // test

@@ -1,28 +1,28 @@
-module s_pn (output_n, input_1, clk, enable, reset, push);
+module wrapper_serial_paralelo (parallel, serial, sd_clock, enable, reset, complete);
 	
 	parameter n = 7; //paralell signal size at output
-	input wire input_1;
-	input wire clk;
+	input wire serial;
+	input wire sd_clock;
 	input wire enable;
 	input wire reset;
-	output reg [n-1:0] output_n;
+	output reg [n-1:0] parallel;
 	integer count = 0;
-	output reg push = 0;	
+	output reg complete = 0;	
 	
-	always @ (posedge clk)
+	always @ (posedge sd_clock)
 		begin
 			if (reset) begin
-				output_n [n-1:0] <= 0;
+				parallel [n-1:0] <= 0;
 			end else begin
 				if (enable) begin
-					output_n [n-1-count] <= input_1;
+					parallel [n-1-count] <= serial;
 				end else begin
-					 output_n <= output_n;
+					 parallel <= parallel;
 				end
 			end
 		end
 	
-	always @ (posedge clk)
+	always @ (posedge sd_clock)
 		begin
 			if(enable) begin
 				if(count != n-1) begin
@@ -32,13 +32,13 @@ module s_pn (output_n, input_1, clk, enable, reset, push);
 				end 
 			end	
 		end
-	//push signal generation
-	always @ (posedge clk)
+	//complete signal generation
+	always @ (posedge sd_clock)
 		begin
 			if (count == n-1) begin
-				push = 1'b1;
+				complete = 1'b1;
 			end else begin
-				push = 1'b0;
+				complete = 1'b0;
 			end
 		end	
 
