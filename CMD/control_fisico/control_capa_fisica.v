@@ -158,6 +158,17 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
        wait_ack:                            // las salidas en estado bajo...
 	 begin
 
+	     ack_out                <= 0;
+	     strobe_out             <= 0;
+	     response [135 : 0]     <= 0;
+             command_timeout        <= 0;
+	     load_send              <= 0;
+	     enable_pts_wrapper     <= 0;
+	     enable_stp_wrapper     <= 0;
+	     reset_wrapper          <= 0;
+	     pad_state              <= 0;
+	     pad_enable             <= 0;
+
 	    if (idle_in == 1) begin
 	       state <= idle;
 	    end else begin
