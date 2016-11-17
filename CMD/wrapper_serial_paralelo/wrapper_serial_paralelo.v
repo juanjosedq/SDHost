@@ -1,13 +1,26 @@
 module wrapper_serial_paralelo (parallel, serial, sd_clock, enable, reset, complete);
 	
-	parameter n = 7; //paralell signal size at output
-	input wire serial;
-	input wire sd_clock;
-	input wire enable;
-	input wire reset;
-	output reg [n-1:0] parallel;
+
+	input enable;
+	input serial;
+	input reset;
+	input sd_clock;
+	//input [7:0]framesize
+
+	output [n-1:0] parallel;
+	output         complete;
+
+	wire enable;
+	wire serial;
+	wire reset;
+	wire sd_clock;
+	//wire [7:0]framesize
+
+	reg [n-1:0] parallel;
+	reg         complete;
+
 	integer count = 0;
-	output reg complete = 0;	
+	parameter n = 7;	
 	
 	always @ (posedge sd_clock)
 		begin
@@ -32,7 +45,7 @@ module wrapper_serial_paralelo (parallel, serial, sd_clock, enable, reset, compl
 				end 
 			end	
 		end
-	//complete signal generation
+	
 	always @ (posedge sd_clock)
 		begin
 			if (count == n-1) begin
