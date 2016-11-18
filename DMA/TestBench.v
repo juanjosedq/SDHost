@@ -1,24 +1,18 @@
 module test;
+wire clk;
+wire DMA_Interrupt;
+wire ADMA_Error;
+wire Transfer_complete;
+wire Command_Reg_Write_or_Continue;
 
- wire [1:0] EstadoActual;
- wire End;
- wire Valid;
- wire Tran;
-
- wire Data_Transfer;
- wire STOP;
- wire Command_Reg_Write_or_Continue;
- wire [1:0] ProximoEstado;
- wire ADMA_Error_Interrupt;
- wire ENB;
 
    initial begin
       $dumpfile("test.vcd");
       $dumpvars(0,test);
    end
 
-   probador senales (EstadoActual, End, Valid, Tran, Data_Transfer, STOP, Command_Reg_Write_or_Continue, ENB);
+   probador senales (clk, Command_Reg_Write_or_Continue);
 
-   TransicionEstados transicion (EstadoActual, End, Valid, Tran, Data_Transfer, STOP, Command_Reg_Write_or_Continue, ProximoEstado, ADMA_Error_Interrupt, ENB);
+   ADMA   adma1 (clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Command_Reg_Write_or_Continue);
 
 endmodule 

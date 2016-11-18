@@ -1,0 +1,146 @@
+$date
+	Mon Nov 14 23:20:08 2016
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module test $end
+$var wire 1 ! clk $end
+$var wire 1 " Transfer_complete $end
+$var wire 96 # System_Address [95:0] $end
+$var wire 1 $ DMA_Interrupt $end
+$var wire 1 % Command_Reg_Write_or_Continue $end
+$var wire 1 & ADMA_Error $end
+$scope module adma1 $end
+$var wire 1 ! clk $end
+$var wire 96 ' System_Address [95:0] $end
+$var wire 1 % Command_Reg_Write_or_Continue $end
+$var reg 1 & ADMA_Error $end
+$var reg 1 ( Act1 $end
+$var reg 1 ) Act2 $end
+$var reg 1 $ DMA_Interrupt $end
+$var reg 1 * End $end
+$var reg 1 + Int $end
+$var reg 4 , Present_State [3:0] $end
+$var reg 96 - SYS_ADR [95:0] $end
+$var reg 1 " Transfer_complete $end
+$var reg 1 . Valid $end
+$upscope $end
+$scope module senales $end
+$var reg 1 % Command_Reg_Write_or_Continue $end
+$var reg 96 / System_Address [95:0] $end
+$var reg 1 ! clk $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b11000011010011111 /
+x.
+bx -
+b1 ,
+x+
+x*
+x)
+x(
+b11000011010011111 '
+x&
+1%
+x$
+b11000011010011111 #
+x"
+0!
+$end
+#50000
+0%
+#100000
+1)
+1(
+1+
+1*
+1.
+0"
+1&
+1$
+b11000011010011111 -
+1%
+1!
+#130000
+b11000011010100000 #
+b11000011010100000 '
+b11000011010100000 /
+#150000
+0%
+#200000
+1%
+0!
+#250000
+0%
+#260000
+b11000011010100001 #
+b11000011010100001 '
+b11000011010100001 /
+#300000
+b11000011010100001 -
+1%
+1!
+#350000
+0%
+#390000
+b11000011010100010 #
+b11000011010100010 '
+b11000011010100010 /
+#400000
+1%
+0!
+#450000
+0%
+#500000
+b11000011010100010 -
+1%
+1!
+#520000
+b11000011010100011 #
+b11000011010100011 '
+b11000011010100011 /
+#550000
+0%
+#600000
+1%
+0!
+#650000
+0%
+b11000011010100100 #
+b11000011010100100 '
+b11000011010100100 /
+#700000
+b11000011010100100 -
+1%
+1!
+#750000
+0%
+#780000
+b11000011010100101 #
+b11000011010100101 '
+b11000011010100101 /
+#800000
+1%
+0!
+#850000
+0%
+#900000
+b11000011010100101 -
+1%
+1!
+#910000
+b11000011010100110 #
+b11000011010100110 '
+b11000011010100110 /
+#950000
+0%
+#1000000
+1%
+0!
