@@ -1,21 +1,34 @@
-module DAT (buffer_in, reg_vector, card_out, clk, pop, push, fifo_ack);
+`include "communication.v"
 
-parameter vector_width = 6;			//reg_vector has inputs with information coming from registers
+module DAT (buffer_in, buffer_out, reg_vector, card_in, card_out, clk, fifo_ack_i, fifo_ack_o, card_ack_i, card_ack_o);
+
+parameter vector_width = 10;			//reg_vector has inputs with information coming from registers
 input wire [31:0] buffer_in;
-input wire [vector_width - 1 :0] reg_vector;	//there will be a specific index for reach element of the array
-output wire [3:0] card_out;			//in reg_vector, set with parameters with a +20 offset
-input wire pop, clk, fifo_ack;				//as parameters below 20 will be set for states 
-output reg push;
-reg [3:0] state = 0;
+input wire [vector_width - 1 :0] reg_vector;
 
+//there will be a specific index for reach element of the array
+//in reg_vector, set with parameters with a +20 offset
+//as parameters below 20 will be set for states 
+input [3:0] card_in;
+output wire [3:0] card_out;			
+output wire [31:0] buffer_out;
+input wire clk, fifo_ack_i, card_ack_i;	
+output reg fifo_ack_o, card_ack_o;	
+
+//ack signals are sent or received when transference is expected
+//both input (_i) and output (_o) have to be received and send in
+//order for transference to be successful
+
+reg [4:0] state = 0;				
+reg enable_trans, new_trans = 0;
 
 //States declaration:
 
-parameter reset = 0;
-parameter idle = 1;
-parameter fifo_check = 2;
-parameter trans = 3;		//send or recieve state
-parameter trans_ready = 4;	//transference acknolgedge state
+parameter reset = 1;
+parameter idle = 5'b00010;
+parameter fifo_check = 5'b00100;
+parameter trans = 5'b01000;		//send or recieve state
+parameter trans_ready = 5'b10000;	//transference acknolgedge state
 
 //reg_vector index parameters: (real index will be "parameter" - 20)
 
@@ -29,6 +42,10 @@ parameter command_reg = 26;	//commands through DAT
 parameter trans_mode = 27;	//same info as in present state
 parameter software_reset = 28;	
 
+always @(*) begin 
+	
+end
+
 always @ (posedge clk)
 	begin 
 		case (state)
@@ -41,7 +58,11 @@ always @ (posedge clk)
 					if (reset) begin 
 						state <= reset;
 					end else begin 
-						state <= fifo_check;
+						if(new_trans == 1) begin							
+							state <= fifo_check;
+						end else begin
+							state <= idle;
+						end
 					end
 				end
 			fifo_check:
@@ -75,7 +96,7 @@ always @ (posedge clk)
 		endcase	
 	end
 	
-	if (state == trans) begin
-		communication com_settings(buffer_in, card_out, clk, pop, push, reg_vector[present_state - 20], reg_vector[present_state -20 +1], reg_vector[trans_block_size - 20]); 		
-	end
+	communication com_instance(buffer_out, card_out, trans_finnished, buffer_in, card_in, clk, enable_trans,  reg_vector); 		
+	
 endmodule
+
