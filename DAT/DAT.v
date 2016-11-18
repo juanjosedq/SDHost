@@ -36,11 +36,13 @@ parameter present_state = 20; 	//includes multiple or single block mode
 				//select bit, data direction selec 					
 				//bit, auto CMD12 enable and block 					
 				//count enable bit 
-parameter host_control = 24;	//high-low speed select
+parameter host_control_width = 24;	//high-low speed select
 parameter trans_block_size = 25;
 parameter command_reg = 26;	//commands through DAT
 parameter trans_mode = 27;	//same info as in present state
 parameter software_reset = 28;	
+assign mode = reg_vector[trans_mode];
+assign dat_width = reg_vector[host_control_width];
 
 always @(*) begin 
 	
@@ -96,7 +98,8 @@ always @ (posedge clk)
 		endcase	
 	end
 	
-	communication com_instance(buffer_out, card_out, trans_finnished, buffer_in, card_in, clk, enable_trans,  reg_vector); 		
+	communication com_instance(buffer_out, card_out, trans_finnished, mode, dat_width, buffer_in, card_in, clk, enable_trans,  
+		
+		reg_vector); 		
 	
 endmodule
-
