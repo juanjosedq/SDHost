@@ -1,22 +1,23 @@
 `timescale 1 ns / 1 ps
-module probador(clk, Command_Reg_Write_or_Continue);
+module probador(clk, Initial_ADMA_System_Address);
 
 
-output        clk, Command_Reg_Write_or_Continue;
+output        clk, Initial_ADMA_System_Address;
 
 
-reg        clk, Command_Reg_Write_or_Continue;
+reg        clk;
+reg  [63:0] Initial_ADMA_System_Address;
 
 initial begin
    
    clk=0;
-   Command_Reg_Write_or_Continue=1;
+   Initial_ADMA_System_Address=1; 
    #1000 $finish;
 
    end
 
    always #100 clk <= !clk;
-   always #50  Command_Reg_Write_or_Continue<= !Command_Reg_Write_or_Continue;  
+   
   
 endmodule 
 

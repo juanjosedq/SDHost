@@ -1,5 +1,5 @@
-all: TestBench.v Probador.v TransicionEstados.v DescriptorPointer.v
-	iverilog -o transicion TestBench.v Probador.v TransicionEstados.v DescriptorPointer.v
+all: TestBench.v Probador.v TransicionEstados.v Descriptor_Table.v
+	iverilog -o transicion TestBench.v Probador.v TransicionEstados.v Descriptor_Table.v
 	vvp transicion
 	gtkwave test.vcd
 
