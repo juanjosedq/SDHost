@@ -35,7 +35,7 @@ module wrapper_serial_paralelo (parallel, serial, sd_clock, enable, reset, compl
 			end
 		end
 	
-	always @ (posedge sd_clock)
+	always @ (negedge sd_clock)
 		begin
 			if(enable) begin
 				if(count != n-1) begin

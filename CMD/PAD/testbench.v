@@ -5,7 +5,8 @@ module testbench;                                // Se define un modulo de prueb
    wire data_in;
    wire data_out;
    wire sd_clock;
-   wire io_port;
+   wire i_port;
+   wire o_port;
 
 
   initial begin   
@@ -14,9 +15,9 @@ module testbench;                                // Se define un modulo de prueb
   end
        
 
-  probador valores (output_input, enable, data_in, sd_clock, io_port);
+  probador valores (output_input, enable, data_in, sd_clock, i_port);
 
-  pad c1 (output_input, enable, data_in, data_out, sd_clock, io_port);
+  pad c1 (output_input, enable, data_in, data_out, sd_clock, i_port, o_port);
    
 
 endmodule // test

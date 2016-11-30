@@ -1,0 +1,42 @@
+[*]
+[*] GTKWave Analyzer v3.3.62 (w)1999-2014 BSI
+[*] Fri Nov 18 13:52:24 2016
+[*]
+[dumpfile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/control_interno/testbench.vcd"
+[dumpfile_mtime] "Fri Nov 18 13:51:26 2016"
+[dumpfile_size] 3432
+[savefile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/control_interno/testbench.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-14.520895 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[sst_width] 218
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 143
+@28
+testbench.ack_in
+testbench.ack_out
+testbench.clock
+@22
+testbench.cmd_argument[31:0]
+testbench.cmd_in[135:0]
+testbench.cmd_index[5:0]
+testbench.cmd_out[39:0]
+@28
+testbench.command_complete
+testbench.command_index_error
+testbench.idle_out
+testbench.new_command
+testbench.reset
+@22
+testbench.response[127:0]
+@28
+testbench.serial_ready
+testbench.strobe_in
+testbench.strobe_out
+testbench.time_out
+@29
+testbench.timeout_enable
+[pattern_trace] 1
+[pattern_trace] 0

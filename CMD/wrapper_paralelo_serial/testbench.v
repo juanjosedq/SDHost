@@ -1,6 +1,6 @@
 module testbench;  
 
-	parameter n = 8; 
+	parameter n = 48; 
 
 	wire           enable;
 	wire [n-1 : 0] parallel;
@@ -8,6 +8,7 @@ module testbench;
 	wire           sd_clock;
 	wire           serial;
 	wire           complete;
+	wire	       load_send;
 
 
   initial begin       
@@ -16,9 +17,9 @@ module testbench;
   end
        
 
-  probador valores (parallel, sd_clock, enable, reset);
+  probador valores (parallel, sd_clock, enable, reset, load_send);
 
-  wrapper_paralelo_serial c1 (enable, parallel, serial, complete, reset, sd_clock); 
+  wrapper_paralelo_serial c1 (enable, parallel, serial, complete, reset, sd_clock, load_send); 
    
 
 endmodule 

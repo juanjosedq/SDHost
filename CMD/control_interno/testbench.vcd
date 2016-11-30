@@ -1,0 +1,249 @@
+$date
+	Mon Nov 28 19:01:41 2016
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module testbench $end
+$var wire 1 ! timeout_enable $end
+$var wire 1 " time_out $end
+$var wire 1 # strobe_out $end
+$var wire 1 $ strobe_in $end
+$var wire 1 % serial_ready $end
+$var wire 128 & response [127:0] $end
+$var wire 1 ' reset $end
+$var wire 1 ( new_command $end
+$var wire 1 ) idle_out $end
+$var wire 1 * command_index_error $end
+$var wire 1 + command_complete $end
+$var wire 40 , cmd_out [39:0] $end
+$var wire 6 - cmd_index [5:0] $end
+$var wire 136 . cmd_in [135:0] $end
+$var wire 32 / cmd_argument [31:0] $end
+$var wire 1 0 clock $end
+$var wire 1 1 ack_out $end
+$var wire 1 2 ack_in $end
+$scope module c1 $end
+$var wire 1 ! timeout_enable $end
+$var wire 1 " time_out $end
+$var wire 1 $ strobe_in $end
+$var wire 1 % serial_ready $end
+$var wire 1 ' reset $end
+$var wire 1 ( new_command $end
+$var wire 6 3 cmd_index [5:0] $end
+$var wire 136 4 cmd_in [135:0] $end
+$var wire 32 5 cmd_argument [31:0] $end
+$var wire 1 0 clock $end
+$var wire 1 2 ack_in $end
+$var reg 1 1 ack_out $end
+$var reg 40 6 cmd_out [39:0] $end
+$var reg 1 + command_complete $end
+$var reg 1 * command_index_error $end
+$var reg 1 ) idle_out $end
+$var reg 4 7 next_state [3:0] $end
+$var reg 128 8 response [127:0] $end
+$var reg 4 9 state [3:0] $end
+$var reg 1 # strobe_out $end
+$upscope $end
+$scope module valores $end
+$var reg 1 2 ack_in $end
+$var reg 1 0 clock $end
+$var reg 32 : cmd_argument [31:0] $end
+$var reg 136 ; cmd_in [135:0] $end
+$var reg 6 < cmd_index [5:0] $end
+$var reg 1 ( new_command $end
+$var reg 1 ' reset $end
+$var reg 1 % serial_ready $end
+$var reg 1 $ strobe_in $end
+$var reg 1 " time_out $end
+$var reg 1 ! timeout_enable $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b11000 <
+b11111111111111111001100110011001111011101110111010001000100010001101110111011101011101110111011111001100110011000110011001100110 ;
+b11111111100110011111111110001000 :
+b1 9
+b0 8
+b10 7
+b0 6
+b11111111100110011111111110001000 5
+b11111111111111111001100110011001111011101110111010001000100010001101110111011101011101110111011111001100110011000110011001100110 4
+b11000 3
+02
+01
+00
+b11111111100110011111111110001000 /
+b11111111111111111001100110011001111011101110111010001000100010001101110111011101011101110111011111001100110011000110011001100110 .
+b11000 -
+b0 ,
+0+
+0*
+0)
+0(
+0'
+b0 &
+0%
+0$
+0#
+0"
+1!
+$end
+#1000
+1)
+b10 9
+10
+#2000
+00
+#3000
+10
+#4000
+00
+#5000
+10
+#6000
+00
+#7000
+10
+#8000
+00
+#9000
+10
+#10000
+00
+#11000
+10
+#12000
+00
+#13000
+10
+#14000
+00
+#15000
+10
+#16000
+00
+#17000
+10
+#18000
+00
+#19000
+10
+#20000
+b100 7
+00
+1(
+#21000
+b1000 7
+b101100011111111100110011111111110001000 ,
+b101100011111111100110011111111110001000 6
+1#
+b100 9
+10
+#22000
+00
+#23000
+b1000 9
+10
+#24000
+00
+#25000
+10
+#26000
+00
+#27000
+10
+#28000
+00
+#29000
+10
+#30000
+00
+#31000
+10
+#32000
+00
+#33000
+10
+#34000
+00
+#35000
+10
+#36000
+00
+#37000
+10
+#38000
+00
+#39000
+10
+#40000
+b11111111111111111001100110011001111011101110111010001000100010001101110111011101011101110111011111001100110011000110011001100110 &
+b11111111111111111001100110011001111011101110111010001000100010001101110111011101011101110111011111001100110011000110011001100110 8
+11
+1+
+00
+1$
+#41000
+10
+#42000
+00
+#43000
+10
+#44000
+00
+#45000
+10
+#46000
+00
+#47000
+10
+#48000
+00
+#49000
+10
+#50000
+00
+#51000
+10
+#52000
+00
+#53000
+10
+#54000
+00
+#55000
+10
+#56000
+00
+#57000
+10
+#58000
+00
+#59000
+10
+#60000
+b10 7
+00
+12
+#61000
+b100 7
+b10 9
+10
+#62000
+00
+#63000
+b1000 7
+b100 9
+10
+#64000
+00
+#65000
+b10 7
+b1000 9
+10

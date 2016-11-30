@@ -1,18 +1,18 @@
 `timescale 1 ns / 1 ps
 
-module probador (output_input, enable, data_in, sd_clock, io_port);
+module probador (output_input, enable, data_in, sd_clock, i_port);
 
    output output_input;
    output enable;
    output data_in;
    output sd_clock;
-   output io_port;
+   output i_port;
 
    reg output_input;
    reg enable;
    reg data_in;
    reg sd_clock;
-   reg io_port;
+   reg i_port;
             
 
    initial begin
@@ -25,9 +25,9 @@ module probador (output_input, enable, data_in, sd_clock, io_port);
 	#6 data_in = 1;
 
 	#6 output_input = 0;
-	io_port = 0;
-	#6 io_port = 1;
-	#6 io_port = 0;
+	i_port = 0;
+	#6 i_port = 1;
+	#6 i_port = 0;
 
 	#5 $finish;
    end

@@ -20,7 +20,7 @@ module wrapper_serial_paralelo (parallel, serial, sd_clock, enable, reset, compl
 	reg         complete;
 
 	integer count = 0;
-	parameter n = 7;	
+	parameter n = 15;	
 	
 	always @ (posedge sd_clock)
 		begin
