@@ -1,6 +1,6 @@
 `include "communication.v"
 
-module DAT (buffer_in, buffer_out, reg_vector, card_in, card_out, clk, fifo_ack_i, fifo_ack_o, card_ack_i, card_ack_o);
+module DAT (buffer_in, buffer_out, reg_vector, card_in, card_out, clk, sd_clk, sd_clk, fifo_ack_i, fifo_ack_o, card_ack_i, card_ack_o);
 
 parameter vector_width = 10;			//reg_vector has inputs with information coming from registers
 input wire [31:0] buffer_in;
@@ -12,7 +12,7 @@ input wire [vector_width - 1 :0] reg_vector;
 input [3:0] card_in;
 output wire [3:0] card_out;			
 output wire [31:0] buffer_out;
-input wire clk, fifo_ack_i, card_ack_i;	
+input wire clk, fifo_ack_i, card_ack_i, sd_clk;	
 output reg fifo_ack_o, card_ack_o;	
 
 //ack signals are sent or received when transference is expected
@@ -43,10 +43,6 @@ parameter trans_mode = 27;	//same info as in present state
 parameter software_reset = 28;	
 assign mode = reg_vector[trans_mode];
 assign dat_width = reg_vector[host_control_width];
-
-always @(*) begin 
-	
-end
 
 always @ (posedge clk)
 	begin 
@@ -98,8 +94,8 @@ always @ (posedge clk)
 		endcase	
 	end
 	
-	communication com_instance(buffer_out, card_out, trans_finnished, mode, dat_width, buffer_in, card_in, clk, enable_trans,  
+	communication com_instance(buffer_out, card_out, trans_finnished, mode, dat_width, buffer_in, card_in, clk, sd_clk, enable_trans,  
 		
-		reg_vector); 		
+		reg_vector, ack_o_buff, ack_o_card); 		
 	
 endmodule
