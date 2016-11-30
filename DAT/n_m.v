@@ -50,7 +50,7 @@ module n_m (enable, p_n, p_m, complete, reset, sd_clock, load_send);
 				count <= 0;
 			end else begin
 				if(load_send) begin
-					if(count != n-1) begin
+					if(count != n/m-1) begin
 						count <= (count + 1);
 					end else begin
 						count <= 0;
@@ -61,7 +61,7 @@ module n_m (enable, p_n, p_m, complete, reset, sd_clock, load_send);
 	//complete signal generation
 	always @ (posedge sd_clock)
 		begin
-			if (count == n-1) begin
+			if (count == n/m-1) begin
 				next_complete = 1'b1;
 			end else begin
 				next_complete = 1'b0;
