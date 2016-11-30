@@ -1,0 +1,79 @@
+[*]
+[*] GTKWave Analyzer v3.3.62 (w)1999-2014 BSI
+[*] Wed Nov 30 05:13:07 2016
+[*]
+[dumpfile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/capa_fisica/testbench.vcd"
+[dumpfile_mtime] "Wed Nov 30 04:45:00 2016"
+[dumpfile_size] 6966
+[savefile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/capa_fisica/testbench.gtkw"
+[timestart] 114570
+[size] 1366 702
+[pos] -1 -1
+*-12.101406 125000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.c1.
+[sst_width] 218
+[signals_width] 300
+[sst_expanded] 1
+[sst_vpaned_height] 179
+@22
+testbench.c1.control1.state[7:0]
+@28
+testbench.command_timeout
+testbench.idle_in
+testbench.no_response
+testbench.reset
+testbench.sd_clock
+@22
+testbench.cmd_to_send[39:0]
+@28
+testbench.strobe_in
+testbench.c1.control1.reset_wrapper
+testbench.c1.control1.enable_pts_wrapper
+@22
+testbench.c1.PTS1.parallel[39:0]
+testbench.c1.PTS1.parallel_cargado[39:0]
+testbench.c1.PTS1.count[31:0]
+@28
+testbench.c1.control1.pad_state
+testbench.c1.control1.pad_enable
+testbench.c1.control1.load_send
+testbench.c1.control1.transmission_complete
+testbench.c1.PTS1.serial
+testbench.cmd_pin_out
+@29
+testbench.c1.STP1.sd_clock
+@28
+testbench.c1.enable_stp_wrapper
+testbench.c1.pad1.i_port
+testbench.c1.STP1.serial
+testbench.cmd_pin_in
+testbench.c1.pad1.data_out
+@800022
+testbench.c1.STP1.parallel[14:0]
+@28
+(0)testbench.c1.STP1.parallel[14:0]
+(1)testbench.c1.STP1.parallel[14:0]
+(2)testbench.c1.STP1.parallel[14:0]
+(3)testbench.c1.STP1.parallel[14:0]
+(4)testbench.c1.STP1.parallel[14:0]
+(5)testbench.c1.STP1.parallel[14:0]
+(6)testbench.c1.STP1.parallel[14:0]
+(7)testbench.c1.STP1.parallel[14:0]
+(8)testbench.c1.STP1.parallel[14:0]
+(9)testbench.c1.STP1.parallel[14:0]
+(10)testbench.c1.STP1.parallel[14:0]
+(11)testbench.c1.STP1.parallel[14:0]
+(12)testbench.c1.STP1.parallel[14:0]
+(13)testbench.c1.STP1.parallel[14:0]
+(14)testbench.c1.STP1.parallel[14:0]
+@1001200
+-group_end
+@22
+testbench.c1.STP1.count[31:0]
+@28
+testbench.c1.control1.reception_complete
+@22
+testbench.response[14:0]
+[pattern_trace] 1
+[pattern_trace] 0
