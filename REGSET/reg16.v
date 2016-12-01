@@ -258,6 +258,26 @@ end
 
 endmodule
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module reg_00E(
 	clk,
 	rst,
@@ -399,6 +419,16 @@ always @(posedge clk or posedge rst) begin
 end
 
 endmodule
+
+
+
+
+
+
+
+
+
+
 
 
 module reg_008(
