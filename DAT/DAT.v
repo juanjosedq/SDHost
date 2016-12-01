@@ -19,8 +19,7 @@ output reg fifo_ack_o, card_ack_o;
 //both input (_i) and output (_o) have to be received and send in
 //order for transference to be successful
 
-reg [4:0] state = 0;				
-reg enable_trans, new_trans = 0;
+reg [4:0] state = 0;		
 
 //States declaration:
 
@@ -80,7 +79,11 @@ always @ (posedge clk)
 					if (reset) begin 
 						state <= reset;
 					end else begin 
-						state <= trans_ready;
+f						if(trans_finnished != 1) begin
+							state <= trans_ready;
+						end else begin
+							state <= trans;
+						end
 					end
 				end
 			trans_ready:
@@ -92,6 +95,10 @@ always @ (posedge clk)
 					end
 				end	
 		endcase	
+	end
+	
+	always @(state) begin
+		if (state == fifo_check or state == fifo_check)
 	end
 	
 	communication com_instance(buffer_out, card_out, trans_finnished, mode, dat_width, buffer_in, card_in, clk, sd_clk, enable_trans,  
