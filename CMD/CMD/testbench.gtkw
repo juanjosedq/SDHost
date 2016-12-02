@@ -1,79 +1,191 @@
 [*]
 [*] GTKWave Analyzer v3.3.62 (w)1999-2014 BSI
-[*] Wed Nov 30 05:13:07 2016
+[*] Fri Dec  2 17:08:48 2016
 [*]
-[dumpfile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/capa_fisica/testbench.vcd"
-[dumpfile_mtime] "Wed Nov 30 04:45:00 2016"
-[dumpfile_size] 6966
-[savefile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/capa_fisica/testbench.gtkw"
-[timestart] 114570
+[dumpfile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/CMD/testbench.vcd"
+[dumpfile_mtime] "Fri Dec  2 16:10:10 2016"
+[dumpfile_size] 30188
+[savefile] "/home/juan/Documents/Digitales/Proyecto_final/CMD/CMD/testbench.gtkw"
+[timestart] 282501
 [size] 1366 702
 [pos] -1 -1
-*-12.101406 125000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.790964 286964 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
-[treeopen] testbench.c1.
+[treeopen] testbench.CMD1.
+[treeopen] testbench.CMD1.control_f1.
 [sst_width] 218
-[signals_width] 300
+[signals_width] 258
 [sst_expanded] 1
 [sst_vpaned_height] 179
 @22
-testbench.c1.control1.state[7:0]
+testbench.CMD1.control_i1.state[3:0]
+testbench.CMD1.control_f1.control1.state[7:0]
 @28
-testbench.command_timeout
-testbench.idle_in
+testbench.timeout_enable
 testbench.no_response
 testbench.reset
-testbench.sd_clock
-@22
-testbench.cmd_to_send[39:0]
-@28
-testbench.strobe_in
-testbench.c1.control1.reset_wrapper
-testbench.c1.control1.enable_pts_wrapper
-@22
-testbench.c1.PTS1.parallel[39:0]
-testbench.c1.PTS1.parallel_cargado[39:0]
-testbench.c1.PTS1.count[31:0]
-@28
-testbench.c1.control1.pad_state
-testbench.c1.control1.pad_enable
-testbench.c1.control1.load_send
-testbench.c1.control1.transmission_complete
-testbench.c1.PTS1.serial
-testbench.cmd_pin_out
-@29
-testbench.c1.STP1.sd_clock
-@28
-testbench.c1.enable_stp_wrapper
-testbench.c1.pad1.i_port
-testbench.c1.STP1.serial
 testbench.cmd_pin_in
-testbench.c1.pad1.data_out
-@800022
-testbench.c1.STP1.parallel[14:0]
+testbench.command_complete
+@22
+testbench.cmd_index[5:0]
+testbench.cmd_argument[31:0]
 @28
-(0)testbench.c1.STP1.parallel[14:0]
-(1)testbench.c1.STP1.parallel[14:0]
-(2)testbench.c1.STP1.parallel[14:0]
-(3)testbench.c1.STP1.parallel[14:0]
-(4)testbench.c1.STP1.parallel[14:0]
-(5)testbench.c1.STP1.parallel[14:0]
-(6)testbench.c1.STP1.parallel[14:0]
-(7)testbench.c1.STP1.parallel[14:0]
-(8)testbench.c1.STP1.parallel[14:0]
-(9)testbench.c1.STP1.parallel[14:0]
-(10)testbench.c1.STP1.parallel[14:0]
-(11)testbench.c1.STP1.parallel[14:0]
-(12)testbench.c1.STP1.parallel[14:0]
-(13)testbench.c1.STP1.parallel[14:0]
-(14)testbench.c1.STP1.parallel[14:0]
-@1001200
+testbench.sd_clock
+testbench.clock
+testbench.cmd_pin_out
+testbench.enable_command_complete
+testbench.enable_response
+testbench.new_command
+@22
+testbench.response[127:0]
+@28
+testbench.CMD1.control_i1.strobe_out
+testbench.CMD1.strobe_out_ci
+testbench.CMD1.control_f1.control1.strobe_in
+testbench.CMD1.control_f1.control1.idle_in
+testbench.CMD1.control_i1.idle_out
+@22
+testbench.CMD1.control_f1.STP1.parallel[127:0]
+@28
+testbench.CMD1.control_f1.STP1.serial
+@22
+testbench.CMD1.control_f1.control1.response[127:0]
+@c00023
+testbench.CMD1.control_f1.control1.pad_response[127:0]
+@28
+(0)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(1)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(2)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(3)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(4)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(5)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(6)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(7)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(8)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(9)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(10)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(11)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(12)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(13)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(14)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(15)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(16)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(17)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(18)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(19)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(20)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(21)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(22)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(23)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(24)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(25)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(26)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(27)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(28)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(29)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(30)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(31)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(32)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(33)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(34)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(35)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(36)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(37)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(38)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(39)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(40)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(41)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(42)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(43)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(44)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(45)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(46)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(47)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(48)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(49)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(50)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(51)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(52)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(53)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(54)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(55)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(56)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(57)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(58)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(59)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(60)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(61)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(62)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(63)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(64)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(65)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(66)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(67)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(68)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(69)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(70)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(71)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(72)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(73)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(74)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(75)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(76)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(77)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(78)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(79)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(80)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(81)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(82)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(83)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(84)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(85)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(86)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(87)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(88)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(89)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(90)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(91)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(92)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(93)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(94)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(95)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(96)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(97)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(98)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(99)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(100)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(101)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(102)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(103)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(104)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(105)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(106)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(107)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(108)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(109)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(110)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(111)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(112)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(113)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(114)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(115)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(116)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(117)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(118)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(119)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(120)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(121)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(122)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(123)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(124)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(125)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(126)testbench.CMD1.control_f1.control1.pad_response[127:0]
+(127)testbench.CMD1.control_f1.control1.pad_response[127:0]
+@1401201
 -group_end
-@22
-testbench.c1.STP1.count[31:0]
 @28
-testbench.c1.control1.reception_complete
+testbench.CMD1.control_f1.STP1.complete
 @22
-testbench.response[14:0]
+testbench.CMD1.control_f1.STP1.count[31:0]
 [pattern_trace] 1
 [pattern_trace] 0

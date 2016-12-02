@@ -18,7 +18,7 @@ module capa_fisica(strobe_in, ack_in, idle_in, cmd_to_send, ack_out, strobe_out,
    output 	   ack_out;
    output 	   strobe_out;
    input          no_response;
-   output [14 : 0] response;
+   output [127 : 0] response;
    output 	   command_timeout;
    output	   cmd_pin_out;
 
@@ -34,16 +34,15 @@ module capa_fisica(strobe_in, ack_in, idle_in, cmd_to_send, ack_out, strobe_out,
 
 
    wire           ack_out;
-   wire 	          strobe_out;
-   reg            serial_ready;
-   wire [14 : 0 ] response;
-   wire 	          command_timeout;
+   wire 	  strobe_out;
+   wire [127 : 0 ] response;
+   wire 	  command_timeout;
    wire		  cmd_pin_out;
 
 
    wire 	  enable_pts_wrapper;
    wire 	  enable_stp_wrapper;
-   wire [14 : 0 ] pad_response;
+   wire [127 : 0 ] pad_response;
    wire 	  reception_complete;
    wire 	  transmission_complete;
    wire		  load_send;

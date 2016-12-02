@@ -1,19 +1,23 @@
 module testbench;                                // Se define un modulo de prueba
 
-   wire           strobe_in;
-   wire           ack_in;
-   wire           idle_in;
-   wire           no_response;
-   wire [39 : 0]  cmd_to_send;
-   wire 	  cmd_pin_in;
-   wire           reset;
-   wire           sd_clock;
-
-   wire  	  ack_out;
-   wire 	  strobe_out;
-   wire [14 : 0] response;
-   wire   	  command_timeout;
-   wire           cmd_pin_out;
+   wire           new_command;         
+   wire           clock;              
+   wire           reset;                
+   wire [31 : 0]  cmd_argument;       
+   wire [5 : 0]   cmd_index;         
+   wire 	  timeout_enable;      
+   wire 	  sd_clock;       
+   wire 	  cmd_pin_in;                            
+   
+   wire [127 : 0] response;            
+   wire 	  command_complete;     
+   wire 	  no_response;         
+   wire 	  cmd_pin_out; 
+   wire		  enable_response;
+   wire		  ack_response;
+   wire		  enable_command_complete;
+   wire		  ack_command_complete;         
+ 
 
   initial begin                             // Bloque que se ejecuta al inicio
      $dumpfile("testbench.vcd");                 // El resultado se guarda en test.vcd
@@ -21,9 +25,9 @@ module testbench;                                // Se define un modulo de prueb
   end
        
 
-  probador valores (strobe_in, ack_in, idle_in, cmd_to_send, no_response, reset, sd_clock, cmd_pin_in);
+  probador valores (new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, sd_clock, cmd_pin_in, no_response, ack_response, ack_command_complete);
 
-  capa_fisica c1 (strobe_in, ack_in, idle_in, cmd_to_send, ack_out, strobe_out, no_response, response, command_timeout, reset, sd_clock, cmd_pin_in, cmd_pin_out);
+  CMD CMD1 (new_command, cmd_argument, cmd_index, timeout_enable, command_complete, cmd_pin_in, cmd_pin_out, sd_clock, clock, reset, response, no_response, enable_response, ack_response, enable_command_complete, ack_command_complete);
    
 
 endmodule // test

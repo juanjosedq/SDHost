@@ -1,59 +1,60 @@
 `timescale 1 ns / 1 ps
 
-module probador (strobe_in, ack_in, idle_in, cmd_to_send, no_response, reset, sd_clock, cmd_pin_in);
+module probador (new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, sd_clock, cmd_pin_in, no_response, ack_response, ack_command_complete);
 
-   output           strobe_in;
-   output           ack_in;
-   output           idle_in;
-   output           no_response;
-   output [39 : 0]  cmd_to_send;
+   output           new_command;           //Nuevo procreso del CMD  
+   output           clock;                 //Reloj del dispositivo 
+   output           reset;                 //Reinicio
+   output [31 : 0]  cmd_argument;          //Argumento del comando
+   output [5 : 0]   cmd_index;             //Indice del comando
+   output 	    timeout_enable;        //Habilitacion del timeout
+   output 	    sd_clock;      
    output 	    cmd_pin_in;
-   output 	    reset;
-   output 	    sd_clock;
+   output	    no_response;
+   output	    ack_response;
+   output	    ack_command_complete;         
 
-   reg           strobe_in;
-   reg           ack_in;
-   reg           idle_in;
-   reg           no_response;
-   reg [39 : 0]  cmd_to_send;
+   reg           new_command;
+   reg           clock;  
+   reg           reset;   
+   reg [31 : 0]  cmd_argument;        
+   reg [5 : 0]   cmd_index;        
+   reg 	         timeout_enable;      
+   reg 	         sd_clock;       
    reg 	         cmd_pin_in;
-   reg 	         reset;
-   reg 	         sd_clock;             
+   reg		 no_response; 
+   reg		 ack_response;
+   reg		 ack_command_complete;            
+         
 
 
    initial begin
-      no_response = 0;
-      cmd_to_send = 40'b11110000_11110000_11110000_11110000_11110000;
+      cmd_index = 6'b011000;
+      cmd_argument = 32'hFF99FF88;
       reset = 0;
+      timeout_enable = 1;
+      new_command = 0;
+      clock = 0;
       sd_clock = 0;
-      strobe_in = 0;
-      ack_in = 0;
-      idle_in = 0;
-      cmd_pin_in = 0;
-      
-      
-     #30 strobe_in = 1;
-     #89 cmd_pin_in = 1;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 1;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 cmd_pin_in = 0;
-     #2 
-     #20 ack_in = 1;
+      cmd_pin_in = 1;
+      no_response = 0;
+      ack_response = 0;
+      ack_command_complete = 0;
 
-     #5 $finish;
+
+            
+     #30 new_command = 1;
+
+     #400
+     #20 ack_response = 1;
+     #20 ack_command_complete = 1;
+     
+
+     #20 $finish;
    end
 
+   always #1 clock = !clock;
    always #1 sd_clock = !sd_clock;
+   always #2 cmd_pin_in = !cmd_pin_in;
 
 endmodule // probador

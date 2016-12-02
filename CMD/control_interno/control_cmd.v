@@ -1,4 +1,4 @@
-module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, serial_ready, ack_in, strobe_in, cmd_in, time_out, response, command_complete, command_index_error, strobe_out, ack_out, idle_out, cmd_out);
+module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, ack_in, strobe_in, cmd_in, time_out, response, command_complete, command_index_error, strobe_out, ack_out, idle_out, cmd_out, enable_response, ack_response, enable_command_complete, ack_command_complete);
 
    
    input           new_command;           //Nuevo procreso del CMD   (WB---Reg)
@@ -7,11 +7,12 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
    input [31 : 0]  cmd_argument;          //Argumento del comando  (Reg)
    input [5 : 0]   cmd_index;             //Indice del comando (Reg)
    input 	   timeout_enable;        //Habilitacion del timeout (Reg)
-   input 	   serial_ready;          //Capa fisica lista (CF)
    input 	   ack_in;                 //Sincronizacion (CF)
    input           strobe_in;             //Fin del uso de la capa fisica (CF) 
-   input [135 : 0] cmd_in;                //Respuesta recibida (CF)
+   input [127 : 0] cmd_in;                //Respuesta recibida (CF)
    input 	   time_out;              //Ocurrencia de un timeout (CF)
+   input	   ack_response;	  // Señal de response leida
+   input	   ack_command_complete;  // Señal de command_complete leida
    
    output [127 : 0] response;            //Respuesta escrita a los registros (Reg)
    output 	    command_complete;    //Fin del proceso de CMD  (Reg - WB)
@@ -20,18 +21,21 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
    output 	    ack_out;             //Sincronizacion (CF)
    output 	    idle_out;            //Enviar la capa fisica al estado idle (CF)
    output [39 : 0]  cmd_out;             //Parte de la trama por enviar (CF)
+   output	    enable_response;	 // habilitar lectura de la señal de response
+   output	    enable_command_complete; // habilitar lectura de la señal command_complete
 
    wire           new_command;         
    wire           clock;              
    wire           reset;                
    wire [31 : 0]  cmd_argument;       
    wire [5 : 0]   cmd_index;         
-   wire 	  timeout_enable;      
-   wire 	  serial_ready;       
+   wire 	  timeout_enable;            
    wire 	  ack_in;           
    wire           strobe_in;         
-   wire [135 : 0] cmd_in;               
-   wire 	  time_out;              
+   wire [127 : 0] cmd_in;               
+   wire 	  time_out;   
+   wire		  ack_response;
+   wire		  ack_command_complete;           
    
    reg [127 : 0] response;            
    reg 	         command_complete;    
@@ -40,6 +44,8 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
    reg 	         ack_out;            
    reg 	         idle_out;            
    reg [39 : 0]  cmd_out; 
+   reg		 enable_response;
+   reg		 enable_command_complete;
 
    reg [3:0] state = 4'b0001;       
    reg [3:0] next_state;      
@@ -68,7 +74,9 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
 	     strobe_out          <= 0;
 	     ack_out             <= 0;
 	     idle_out            <= 0;
-	     cmd_out [39 : 0]     <= 0;
+	     cmd_out [39 : 0]    <= 0;
+	     enable_response	 <= 0;
+	     enable_command_complete <= 0;
 
 	     next_state <= idle;
 	     
@@ -102,14 +110,18 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
 	processing :
 	  begin
 	     if (strobe_in == 1) begin
-		command_complete <= 1;
+		enable_command_complete <= 1;			// Se habilita el flip-flop para lectura de command_complete
+		command_complete <= 1;				// Se pasa el valor de command_complete
+
 		ack_out <= 1;
 
-		
-	        response[127:0] <= cmd_in[127:0];               //***revisar lo del command_index_error***
-								//*** del estado processing pasar al idle***
-	        if (ack_in == 1) begin
+		enable_response <= 1;				// Se habilita el flip-flop para lectura de response
+	        response[127:0] <= cmd_in[127:0];              	// Se pasa a response el contenido de cmd_in
+								
+	        if (ack_in == 1 && ack_response == 1 && ack_command_complete == 1) begin					
 		   next_state <= idle;
+		   enable_response <= 0;			// Se deshabilita la lectura de response
+		   enable_command_complete <= 0;		// Se deshabilita la lectura de command_complete
 		end else begin
 		   next_state <= processing;
 		end
