@@ -1,18 +1,27 @@
-module Transferencia(Temporal, Block_Count,Transfer_Type);
-input [1:0] Temporal;
-input [15:0] Block_Count;
+module TipoDeTransferencia(Multi_Single_Block_Select, Block_Count_Enable,Transfer_Type);
+input  Multi_Single_Block_Select;
+input  Block_Count_Enable;
+
 
 output [1:0] Transfer_Type;
 
-wire [1:0] Temporal;
-wire [15:0] Block_Count;
+wire Multi_Single_Block_Select;
+wire Block_Count_Enable;
+
 
 reg [1:0] Transfer_Type;
+reg [1:0] Temporal; 
 
   parameter Single_Transfer  = 2'b00; 
   parameter Infinite_Transfer  = 2'b01;
   parameter Multiple_Transfer  = 2'b10;
   parameter Stop_Multiple_Transfer  = 2'b11;
+
+
+always @(*)
+begin
+ Temporal[1]<=Multi_Single_Block_Select;
+ Temporal[0]<=Block_Count_Enable;
 
 case(Temporal)  
 				2'b00:  begin 
@@ -31,7 +40,7 @@ case(Temporal)
 					
 				2'b11:	begin
  
-					if (Block_Count==0) begin
+					if (Block_Count_Enable==0) begin
 					Transfer_Type<= Stop_Multiple_Transfer;
 					end
 					else begin
@@ -40,9 +49,9 @@ case(Temporal)
 
 
 					end
-				default: 
+				//default: 
          				//definir
       				endcase
 
-
+end 
 endmodule 
