@@ -1,5 +1,5 @@
 
-module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_System_Address, Block_Size_Register, Block_Count_Register, Transfer_Mode_Register, Present_State_Register, Block_Gap_Control_Register, Command_Register, ADMA_System_Address_Register, enb, ack);
+module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_System_Address, Block_Size_Register, Block_Count_Register, Transfer_Mode_Register, Present_State_Register, Block_Gap_Control_Register, Command_Register, ADMA_System_Address_Register, enb_DMA_Interrupt, ack_DMA_Interrupt,  enb_ADMA_Error, ack_ADMA_Error, enb_Transfer_complete, ack_Transfer_complete, enb_ADMA_System_Address_Register, ack_ADMA_System_Address_Register);
 
 
   parameter ST_STOP  = 4'b0001; //Estados
@@ -17,9 +17,10 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   parameter Stop_Multiple_Transfer  = 2'b11;
 
 
-
-
-  input ack;
+  input ack_DMA_Interrupt;
+  input ack_ADMA_Error;
+  input ack_Transfer_complete;
+  input ack_ADMA_System_Address_Register;
   input clk;
   input [63:0] Initial_ADMA_System_Address;
   input [15:0] Block_Size_Register;     //Offset 004h, interesa bit [11:0] 
@@ -29,13 +30,19 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   input [7:0]  Block_Gap_Control_Register;    //Offset 02Ah, interesan los bits 0,1.
   input [15:0]  Command_Register;        //Offset 00Eh, interesan los bits 6 y 7. 
 
-  output enb;
+  output enb_DMA_Interrupt;
+  output enb_ADMA_Error;
+  output enb_Transfer_complete;
+  output enb_ADMA_System_Address_Register;
   output DMA_Interrupt;     //Normal_Interrupt_Status_Register   Offset  030h  bit 3. 
   output ADMA_Error;        //Error Interrupt Status Register    Offset 032h bit 9.
   output Transfer_complete; //Normal_Interrupt_Status_Register   Offset  030h  bit 1.
   output [63:0] ADMA_System_Address_Register; // (Offset 058h) 
   
-  wire ack;
+  wire ack_DMA_Interrupt;
+  wire ack_ADMA_Error;
+  wire ack_Transfer_complete;
+  wire ack_ADMA_System_Address_Register;
   wire clk;
   wire  [63:0] Initial_ADMA_System_Address;      
   wire  [15:0] Block_Size_Register; 
@@ -49,7 +56,10 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   wire [1:0] Transfer_Type; 
   
 
-  reg enb;
+  reg enb_DMA_Interrupt=0;
+  reg enb_ADMA_Error=0;
+  reg enb_Transfer_complete=0;
+  reg enb_ADMA_System_Address_Register=0;
   reg DMA_Interrupt=0; 
   reg ADMA_Error=0; 
   reg Transfer_complete=0;
@@ -75,8 +85,6 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   reg [1:0] Command_Type; 
   reg [3:0] Transfer_Mode_Direction;
 
-  reg SOY_BASURA=1;
-
 
 
 Descriptor_Table  table1   (SYS_ADR, Descriptor_Line);
@@ -96,6 +104,7 @@ Stop_At_Block_Gap_Request<= Block_Gap_Control_Register[0];
 Continue_Request<= Block_Gap_Control_Register[1];
 Command_Type[0] <= Command_Register[6];
 Command_Type[1] <= Command_Register[7];
+
 Valid <= Descriptor_Line[0];   //Atributos a partir del Descriptor_Line
 End <= Descriptor_Line[1];
 Int <= Descriptor_Line[2];
@@ -113,12 +122,37 @@ ADMA_System_Address_Register<=SYS_ADR;
 			if(Command_Reg_Write_or_Continue==1) 
 					begin
 					SYS_ADR<=Initial_ADMA_System_Address;
-                          		Present_State <= ST_FDS;
+					ADMA_System_Address_Register<=SYS_ADR;
+					enb_ADMA_System_Address_Register<=1;
+					
+						if(ack_ADMA_System_Address_Register==1)begin
+
+                          			Present_State <= ST_FDS;
+						enb_ADMA_System_Address_Register<=0;
+										       end 
+						else begin
+						Present_State <= ST_STOP;
+						end
+
 				        end
 			else	
 					begin
 					SYS_ADR<=Initial_ADMA_System_Address;
-					Present_State <= ST_STOP;
+					ADMA_System_Address_Register<=SYS_ADR;
+					enb_ADMA_System_Address_Register<=1;
+					
+						if(ack_ADMA_System_Address_Register==1)begin
+
+                          			Present_State <= ST_STOP;
+						enb_ADMA_System_Address_Register<=0;
+										       end 
+						else begin
+						Present_State <= ST_STOP;
+						end
+					
+
+
+
 					end
 		  end                   
 
@@ -131,9 +165,15 @@ ADMA_System_Address_Register<=SYS_ADR;
 				             end
 			      else	
 					     begin
-					     Present_State <= ST_FDS;
-					     ADMA_Error <=1;          //ADMA ERROR INTERRUPT
+					     ADMA_Error <=1;          
 					     DMA_Interrupt <=1; 
+					     enb_DMA_Interrupt<=1;
+  					     enb_ADMA_Error<=1;
+					     if(ack_DMA_Interrupt==1 & enb_ADMA_Error==1) begin
+					     Present_State <= ST_FDS;
+					     enb_DMA_Interrupt<=0;
+  					     enb_ADMA_Error<=0;
+					     end 
                                              end
 		 end
 
@@ -165,24 +205,46 @@ ADMA_System_Address_Register<=SYS_ADR;
 			
 
 			if (Tran==1) begin
-				Present_State <= ST_TFR;
-				     end 
-			else
-				begin
+				
+				ADMA_System_Address_Register<=SYS_ADR;
+				enb_ADMA_System_Address_Register<=1;
+					
+				if(ack_ADMA_System_Address_Register==1)begin
 
-				if (End==0)
-					Present_State <= ST_FDS;
-				else
+                          	Present_State <= ST_TFR;
+				enb_ADMA_System_Address_Register<=0;
+								       end 
+				else begin
+				Present_State <= ST_CADR;
+				end
+
+				     end 
+			else    begin
+
+				if (End==0) begin
+					ADMA_System_Address_Register<=SYS_ADR;
+					enb_ADMA_System_Address_Register<=1;
+					
+					if(ack_ADMA_System_Address_Register==1)begin
+
+                          		Present_State <= ST_FDS;
+					enb_ADMA_System_Address_Register<=0;
+								               end 
+					else begin
+					Present_State <= ST_CADR;
+					end
+					   end
+
+				else     begin
 					Present_State <= ST_STOP;
 				
-				end
+				         end
+				end 
                         end
      "ST_TFR":
 
-
-                //Transferencia
 	        begin 
-	             if(TFC==1 & (End==1 | STOP==1))
+	             if(TFC==1 & (End==1 | Stop_At_Block_Gap_Request==1))
 		           Present_State <= ST_STOP;
 	             else 
 		           Present_State <= ST_TFR;	
@@ -198,15 +260,6 @@ ADMA_System_Address_Register<=SYS_ADR;
 
 
   end
-//  parameter WAIT= 4'b0001; //DirecciónTransferencia
-//  parameter CARD_TO_HOST= 4'b0010;
-//  parameter HOST_TO_CARD= 4'b0100;
-
-//  parameter Single_Transfer  = 2'b00; //Tipos de Transferencia
-//  parameter Infinite_Transfer  = 2'b01;
-//  parameter Multiple_Transfer  = 2'b10;
-//  parameter Stop_Multiple_Transfer  = 2'b11;
-
 
 //  output DMA_Interrupt;     //Normal_Interrupt_Status_Register   Offset  030h  bit 3. 
 //  output ADMA_Error;        //Error Interrupt Status Register    Offset 032h bit 9.
@@ -218,12 +271,7 @@ ADMA_System_Address_Register<=SYS_ADR;
 
 
 //  reg [11:0] Transfer_Block_Size; 
-//  reg Multi_Single_Block_Select;                                                    YALO
-//  reg Data_Transfer_Direction_Select; //1:Card_Host  0:Host_Cart                    YALO
-//  reg Block_Count_Enable; 
-//  reg DMA_Eneable; 
-//  reg Read_Transfer_Active;                                                         YALO
-//  reg Write_Transfer_Active;                                                        YALO
+ 
 //  reg Stop_At_Block_Gap_Request;
 //  reg Continue_Request;
 
@@ -232,141 +280,137 @@ ADMA_System_Address_Register<=SYS_ADR;
 always @(*) begin
 	if (Present_State==ST_TFR) begin   
 
-           if(Data_Transfer_Direction_Select==0)begin
-			 Transfer_Mode_Direction<=HOST_TO_CARD;
+	 	case(Data_Transfer_Direction_Select)
+		     0: begin 
+			Transfer_Mode_Direction<=HOST_TO_CARD;
+			
+			end
+		     1: begin
+			Transfer_Mode_Direction<=CARD_TO_HOST;
+			end 
 
-						end
-	    else   begin
-			 Transfer_Mode_Direction<=CARD_TO_HOST;
-                   end
+		     default: begin
+		        Transfer_Mode_Direction<=WAIT; 
+			      end 
 
-        
+		endcase  
+
+	          //   if(TFC==1 & (End==1 | Stop_At_Block_Gap_Request==1))
+		  //         Present_State <= ST_STOP;
+	          //   else 
+		  //         Present_State <= ST_TFR;	
 
 
-       case(Transfer_Type)  
-		"Single_Transfer":         begin  
- 
-							if(Transfer_Mode_Direction==HOST_TO_CARD)begin
-			 				          
 
+       case(Transfer_Mode_Direction)
+		"HOST_TO_CARD": begin
+			
+	case(Transfer_Type)
+			"Single_Transfer":	begin
+						if(Write_Transfer_Active==1)begin
+ 		   							//TRANSFERENCIA		
+	
+								     end
+						else   begin                   
+ 	      					    Transfer_Type<= Single_Transfer;								      
+                					end
+
+					end
+			
+			"Multiple_Transfer":    begin
+						if(Write_Transfer_Active==1)begin
+ 		   							//TRASFERENCIA2		
+								     end
+						else   begin                   //Write_Transfer_Active==0
+			 	   			     Transfer_Type<= Stop_Multiple_Transfer;		
+                					end
+					end
+
+			"Stop_Multiple_Transfer":begin
+					if (Stop_At_Block_Gap_Request==0 & Continue_Request==1) begin
+						Transfer_Type<=Multiple_Transfer;		
+												end				
+					else begin
+						Transfer_Type<=Stop_Multiple_Transfer;
+					     end
+
+					end
+
+//					default:
+					
+	endcase			
+
+				end 
+	"CARD_TO_HOST": begin
+
+			
+		case(Transfer_Type)
+		"Single_Transfer":	begin
+					
+					if(Read_Transfer_Active==1)begin
+ 		   							//AGREGAR ACCIÓN  5		
+
+								     end
+						else   begin                   //Read_Transfer_Active==0
+ 	      							       //AGREGAR ACCIÓN 6
+                					end
+
+					end
+			
+		"Multiple_Transfer":    begin
+					if(Read_Transfer_Active==1)begin
+			   							//AGREGAR ACCIÓN  5		
+
+								     end
+						else   begin                   //Read_Transfer_Active==0
+			 	      							       //AGREGAR ACCIÓN 6
+                					end
+					end
+
+		"Stop_Multiple_Transfer":begin
+					if (Stop_At_Block_Gap_Request==0 & Continue_Request==1) begin
+						Transfer_Type<=Multiple_Transfer;		
+												end				
+					else begin
+						Transfer_Type<=Stop_Multiple_Transfer;
+					     end
+
+					end
+
+//					default:
+					
+		endcase			
+
+		end 
+
+		"WAIT": begin
+							case(Transfer_Type)
+			"Single_Transfer":	begin
 								
-								if(Write_Transfer_Active==1)begin
-			 		   							//AGREGAR ACCIÓN		
-
-											     end
-								else   begin    //Write_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
-
-
-
-							end
-	   						 else   begin    //CARD_TO_HOST
-
-
-								if(Read_Transfer_Active==1)begin
-			 		   							//AGREGAR ACCIÓN		
-
-											     end
-								else   begin    //Read_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
-							end
-  
-
-					   end
-		"Multiple_Transfer":       begin  
-							
-							if(Transfer_Mode_Direction==HOST_TO_CARD)begin
-			 				          
-
+								end
+			
+			"Multiple_Transfer":    begin
 								
-								if(Write_Transfer_Active==1)begin
-			 		   							//AGREGAR ACCIÓN		
+								end
 
-											     end
-								else   begin    //Write_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
+			"Stop_Multiple_Transfer":begin
+								 
+								end
 
+//					default:
+					
+							endcase			
+					
 
-
-							end
-	   						 else   begin    //CARD_TO_HOST
-
-
-								if(Read_Transfer_Active==1)begin
-			 		   							//AGREGAR ACCIÓN		
-
-											     end
-								else   begin    //Read_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
-							end
-  
-					   end
-
-	        "Stop_Multiple_Transfer":  begin  
-							
-							if(Transfer_Mode_Direction==HOST_TO_CARD)begin
-			 				          
-
-								
-								if(Write_Transfer_Active==1)begin
-			 		   								
-
-											     end
-								else   begin    //Write_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
+			end 
 
 
 
-							end
-	   						 else   begin    //CARD_TO_HOST
-
-
-								if(Read_Transfer_Active==1)begin
-			 		   							//AGREGAR ACCIÓN		
-
-											     end
-								else   begin    //Read_Transfer_Active==0
-			 	      							     //AGREGAR ACCIÓN
-                							end
-							end
-  
-
-					   end
-
-				
-				//default: 
-         		                  
-      				endcase
-
-
-
-
-
+		endcase
 
 	end 
 
-
-//FUNCIONAMIENTO: ack y enb están en bajo hasta que se necesite transmitir un dato a registros. En ese momento ack=1 y enb=1, luego registros pone ack=0 cuando la transmisión fue efectiva(y ack lleva a enb=0). En caso de que ack se mantenga en alto se sabe que la transmisión a registros no fue efectiva.  
-if (ack==0)begin
-enb<=0;
-end
-else begin
-enb <= enb;
-end
-
-
-end
-
-
-
-
-		
-
+      
 endmodule 
 
 
