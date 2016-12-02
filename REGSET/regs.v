@@ -109,7 +109,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -200,7 +200,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -299,7 +299,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 16'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -390,7 +390,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 16'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -481,7 +481,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -609,7 +609,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -741,7 +741,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 16'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -832,7 +832,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 128'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -933,7 +933,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1124,7 +1124,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1268,7 +1268,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1367,7 +1367,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1486,7 +1486,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1596,7 +1596,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1715,7 +1715,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1805,7 +1805,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1912,7 +1912,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2077,7 +2077,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2250,7 +2250,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2416,7 +2416,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2591,7 +2591,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ^ enb_block1 ^ enb_block2) begin
+	else if (enb_block0 or enb_block1 or enb_block2) begin
 		data_out <= data_in;
 	end
 	else begin
