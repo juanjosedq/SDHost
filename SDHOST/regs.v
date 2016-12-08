@@ -1,5 +1,5 @@
 
-module  reg_template(
+module reg_template(
 	clk,
 	rst,
 	
@@ -155,8 +155,7 @@ parameter width = 32;
 input rst;						// reset
 input clk;						// clock
 input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
+
 output 	ack;
 
 input	[31:0] SDMA_System_Address_in;
@@ -200,7 +199,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (enb_block0 ) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -416,10 +415,6 @@ module reg_008h(
 	clk,
 	rst,
 	
-	ack,
-	enb_block0,
-	enb_block1,
-	enb_block2,
 
 	CommandArgument_in,
 
@@ -434,10 +429,6 @@ parameter width = 32;
 
 input rst;						// reset
 input clk;						// clock
-input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
-output 	ack;
 
 input	[32:0] CommandArgument_in;
 
@@ -450,10 +441,7 @@ wire [(width-1):0] data_in;
 	//Regular Blocks
 	wire rst;		
 	wire clk;
-	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
-	reg ack;
+
 	//INPUTS
 	wire	[32:0] CommandArgument_in;
 
@@ -481,24 +469,14 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else begin
 		data_out <= data_in;
 	end
-	else begin
-		data_out <= data_out;
-	end
+
 end
 
 
-//Bloque combinacional
-always @(*) begin
-	if (data_in == data_out) begin
-		ack = 1'b1;		
-	end
-	else begin
-		ack = 1'b0;
-	end
-end
+
 
 endmodule
 
@@ -584,8 +562,8 @@ wire [(width-1):0] data_in;
 
 //REG INPUT OUTPUT ASSIGNS
 	//RESERVED
-	assign data_in [15:6] = 10'b0 ;		
-	assign data_in [3] = 1'b0 ;
+	assign data_in [15:6] = 0 ;		
+	assign data_in [3] = 0 ;
 
 	//INPUTS
 	assign data_in [0] =	DMAenable_in;
@@ -635,10 +613,7 @@ module reg_00eh(
 	clk,
 	rst,
 	
-	ack,
-	enb_block0,
-	enb_block1,
-	enb_block2,
+
 
 	CommandIndex_in,
 	CommandType_in,
@@ -663,10 +638,7 @@ parameter width = 16;
 
 input rst;						// reset
 input clk;						// clock
-input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
-output 	ack;
+
 
 input	[4:0] CommandIndex_in;
 input	[1:0] CommandType_in;
@@ -689,10 +661,7 @@ wire [(width-1):0] data_in;
 	//Regular Blocks
 	wire rst;		
 	wire clk;
-	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
-	reg ack;
+
 	//INPUTS
 	wire	[4:0] CommandIndex_in;
 	wire	[1:0] CommandType_in;
@@ -716,8 +685,8 @@ wire [(width-1):0] data_in;
 
 //REG INPUT OUTPUT ASSIGNS
 	//RESERVED
-	assign data_in [15:14] = 2'b00 ;		
-	assign data_in [2] = 2'b00 ;
+	assign data_in [15:14] = 0 ;		
+	assign data_in [2] = 0 ;
 
 	//INPUTS
 	assign data_in [13:8] =	CommandIndex_in;
@@ -741,24 +710,15 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 16'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else begin
 		data_out <= data_in;
 	end
-	else begin
-		data_out <= data_out;
-	end
+
 end
 
 
 //Bloque combinacional
-always @(*) begin
-	if (data_in == data_out) begin
-		ack = 1'b1;		
-	end
-	else begin
-		ack = 1'b0;
-	end
-end
+
 
 endmodule
 
@@ -768,8 +728,6 @@ module reg_010h(
 	
 	ack,
 	enb_block0,
-	enb_block1,
-	enb_block2,
 
 	Response_in,
 
@@ -785,8 +743,7 @@ parameter width = 128;
 input rst;						// reset
 input clk;						// clock
 input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
+
 output 	ack;
 
 input	[127:0] Response_in;
@@ -801,8 +758,7 @@ wire [(width-1):0] data_in;
 	wire rst;		
 	wire clk;
 	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
+
 	reg ack;
 	//INPUTS
 	wire	[127:0] Response_in;
@@ -832,7 +788,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 128'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (enb_block0) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -908,24 +864,13 @@ wire [(width-1):0] data_in;
 
 //REG INPUT OUTPUT ASSIGNS
 	//RESERVED
-	assign data_in [15:14] = 2'b00 ;		
-	assign data_in [2] = 2'b00 ;
 
 	//INPUTS
-	assign data_in [13:8] =	CommandIndex_in;
-	assign data_in [7:6] =	CommandType_in;
-	assign data_in [5] =	DataPresentState_in;
-	assign data_in [4] =	CommandIndezCheckEnable_in;
-	assign data_in [3] =	CommandCRCCheckEnable_in;
-	assign data_in [1:0] =	ResponseTypeSelect_in;
+	assign data_in = BufferData_in;
+
 
 	//OUTPUTS
-	assign	CommandIndex_out	= data_out [13:8];
-	assign	CommandType_out	= data_out [7:6];
-	assign	DataPresentState_out	= data_out [5];
-	assign	CommandIndezCheckEnable_out	= data_out [4];
-	assign	CommandCRCCheckEnable_out	= data_out [3];
-	assign	ResponseTypeSelect_out	= data_out [1:0];
+	assign	BufferData_out	= data_out ;
 
 //Bloque secuencial
 always @(posedge clk) begin
@@ -955,7 +900,7 @@ end
 endmodule
 
 
-
+//Present state
 module reg_024h(
 	clk,
 	rst,
@@ -2450,29 +2395,29 @@ module reg_036h(
 	enb_block2,
 
 
-	VendorErr_in,
-	ADMAErr_in,
-	AutoCMD12Err_in,
-	CurrentLimitErr_in,
-	DataEndBitErr_in,
-	DataCRCErr_in,
-	DataTimeoutErr_in,
-	CommandIndexErr_in,
-	CommandEndBitErr_in,
-	CommandCRCErr_in,
-	CommandTimeoutErr_in,
+	VendorErrStatus_in,
+	ADMAErrStatus_in,
+	AutoCMD12ErrStatus_in,
+	CurrentLimitErrStatus_in,
+	DataEndBitErrStatus_in,
+	DataCRCErrStatus_in,
+	DataTimeoutErrStatus_in,
+	CommandIndexErrStatus_in,
+	CommandEndBitErrStatus_in,
+	CommandCRCErrStatus_in,
+	CommandTimeoutErrStatus_in,
 
-	VendorErr_out,
-	ADMAErr_out,
-	AutoCMD12Err_out,
-	CurrentLimitErr_out,
-	DataEndBitErr_out,
-	DataCRCErr_out,
-	DataTimeoutErr_out,
-	CommandIndexErr_out,
-	CommandEndBitErr_out,
-	CommandCRCErr_out,
-	CommandTimeoutErr_out
+	VendorErrStatus_out,
+	ADMAErrStatus_out,
+	AutoCMD12ErrStatus_out,
+	CurrentLimitErrStatus_out,
+	DataEndBitErrStatus_out,
+	DataCRCErrStatus_out,
+	DataTimeoutErrStatus_out,
+	CommandIndexErrStatus_out,
+	CommandEndBitErrStatus_out,
+	CommandCRCErrStatus_out,
+	CommandTimeoutErrStatus_out
 	
 	);
 //Parameters before
@@ -2488,29 +2433,29 @@ input enb_block1;				// ENABLE BLOCKS
 input enb_block2;
 output 	ack;
 
-input [3:0] VendorErr_in;
-input ADMAErr_in;
-input AutoCMD12Err_in;
-input CurrentLimitErr_in;
-input DataEndBitErr_in;
-input DataCRCErr_in;
-input DataTimeoutErr_in;
-input CommandIndexErr_in;
-input CommandEndBitErr_in;
-input CommandCRCErr_in;
-input CommandTimeoutErr_in;
+input [3:0] VendorErrStatus_in;
+input ADMAErrStatus_in;
+input AutoCMD12ErrStatus_in;
+input CurrentLimitErrStatus_in;
+input DataEndBitErrStatus_in;
+input DataCRCErrStatus_in;
+input DataTimeoutErrStatus_in;
+input CommandIndexErrStatus_in;
+input CommandEndBitErrStatus_in;
+input CommandCRCErrStatus_in;
+input CommandTimeoutErrStatus_in;
 
-output [3:0] VendorErr_out;
-output ADMAErr_out;
-output AutoCMD12Err_out;
-output CurrentLimitErr_out;
-output DataEndBitErr_out;
-output DataCRCErr_out;
-output DataTimeoutErr_out;
-output CommandIndexErr_out;
-output CommandEndBitErr_out;
-output CommandCRCErr_out;
-output CommandTimeoutErr_out;
+output [3:0] VendorErrStatus_out;
+output ADMAErrStatus_out;
+output AutoCMD12ErrStatus_out;
+output CurrentLimitErrStatus_out;
+output DataEndBitErrStatus_out;
+output DataCRCErrStatus_out;
+output DataTimeoutErrStatus_out;
+output CommandIndexErrStatus_out;
+output CommandEndBitErrStatus_out;
+output CommandCRCErrStatus_out;
+output CommandTimeoutErrStatus_out;
 
 
 //REG SIZE
@@ -2525,30 +2470,30 @@ wire [(width-1):0] data_in;
 	wire enb_block2;
 	reg ack;
 	//INPUTS
-	wire [3:0] VendorErr_in;
-	wire ADMAErr_in;
-	wire AutoCMD12Err_in;
-	wire CurrentLimitErr_in;
-	wire DataEndBitErr_in;
-	wire DataCRCErr_in;
-	wire DataTimeoutErr_in;
-	wire CommandIndexErr_in;
-	wire CommandEndBitErr_in;
-	wire CommandCRCErr_in;
-	wire CommandTimeoutErr_in;
+	wire [3:0] VendorErrStatus_in;
+	wire ADMAErrStatus_in;
+	wire AutoCMD12ErrStatus_in;
+	wire CurrentLimitErrStatus_in;
+	wire DataEndBitErrStatus_in;
+	wire DataCRCErrStatus_in;
+	wire DataTimeoutErrStatus_in;
+	wire CommandIndexErrStatus_in;
+	wire CommandEndBitErrStatus_in;
+	wire CommandCRCErrStatus_in;
+	wire CommandTimeoutErrStatus_in;
 
 	//OUTPUTS
-	wire [3:0] VendorErr_out;
-	wire ADMAErr_out;
-	wire AutoCMD12Err_out;
-	wire CurrentLimitErr_out;
-	wire DataEndBitErr_out;
-	wire DataCRCErr_out;
-	wire DataTimeoutErr_out;
-	wire CommandIndexErr_out;
-	wire CommandEndBitErr_out;
-	wire CommandCRCErr_out;
-	wire CommandTimeoutErr_out;
+	wire [3:0] VendorErrStatus_out;
+	wire ADMAErrStatus_out;
+	wire AutoCMD12ErrStatus_out;
+	wire CurrentLimitErrStatus_out;
+	wire DataEndBitErrStatus_out;
+	wire DataCRCErrStatus_out;
+	wire DataTimeoutErrStatus_out;
+	wire CommandIndexErrStatus_out;
+	wire CommandEndBitErrStatus_out;
+	wire CommandCRCErrStatus_out;
+	wire CommandTimeoutErrStatus_out;
 //REG
 	//OUTPUTS
 	reg [(width-1):0] data_out;
@@ -2559,37 +2504,473 @@ wire [(width-1):0] data_in;
 	assign data_in [11:10] = 0 ;
 
 	//INPUTS
-	assign data_in [15:12] = VendorErr_in;
-	assign data_in [9] = ADMAErr_in;
-	assign data_in [8] = AutoCMD12Err_in;
-	assign data_in [7] = CurrentLimitErr_in;
-	assign data_in [6] = DataEndBitErr_in;
-	assign data_in [5] = DataCRCErr_in;
-	assign data_in [4] = DataTimeoutErr_in;
-	assign data_in [3] = CommandIndexErr_in;
-	assign data_in [2] = CommandEndBitErr_in;
-	assign data_in [1] = CommandCRCErr_in;
-	assign data_in [0] = CommandTimeoutErr_in;
+	assign data_in [15:12] = VendorErrStatus_in;
+	assign data_in [9] = ADMAErrStatus_in;
+	assign data_in [8] = AutoCMD12ErrStatus_in;
+	assign data_in [7] = CurrentLimitErrStatus_in;
+	assign data_in [6] = DataEndBitErrStatus_in;
+	assign data_in [5] = DataCRCErrStatus_in;
+	assign data_in [4] = DataTimeoutErrStatus_in;
+	assign data_in [3] = CommandIndexErrStatus_in;
+	assign data_in [2] = CommandEndBitErrStatus_in;
+	assign data_in [1] = CommandCRCErrStatus_in;
+	assign data_in [0] = CommandTimeoutErrStatus_in;
 
 
 	//OUTPUTS
-	assign VendorErr_out = data_out [15:12];
-	assign ADMAErr_out = data_out [9];
-	assign AutoCMD12Err_out = data_out [8];
-	assign CurrentLimitErr_out = data_out [7];
-	assign DataEndBitErr_out = data_out [6];
-	assign DataCRCErr_out = data_out [5];
-	assign DataTimeoutErr_out = data_out [4];
-	assign CommandIndexErr_out = data_out [3];
-	assign CommandEndBitErr_out = data_out [2];
-	assign CommandCRCErr_out = data_out [1];
-	assign CommandTimeoutErr_out = data_out [0];
+	assign VendorErrStatus_out = data_out [15:12];
+	assign ADMAErrStatus_out = data_out [9];
+	assign AutoCMD12ErrStatus_out = data_out [8];
+	assign CurrentLimitErrStatus_out = data_out [7];
+	assign DataEndBitErrStatus_out = data_out [6];
+	assign DataCRCErrStatus_out = data_out [5];
+	assign DataTimeoutErrStatus_out = data_out [4];
+	assign CommandIndexErrStatus_out = data_out [3];
+	assign CommandEndBitErrStatus_out = data_out [2];
+	assign CommandCRCErrStatus_out = data_out [1];
+	assign CommandTimeoutErrStatus_out = data_out [0];
 
 //Bloque secuencial
 always @(posedge clk) begin
 	if (rst) begin
 		// reset
 		data_out <= 32'b0;
+	end
+	else if (enb_block0 || enb_block1 || enb_block2) begin
+		data_out <= data_in;
+	end
+	else begin
+		data_out <= data_out;
+	end
+end
+
+
+//Bloque combinacional
+always @(*) begin
+	if (data_in == data_out) begin
+		ack = 1'b1;		
+	end
+	else begin
+		ack = 1'b0;
+	end
+end
+
+endmodule
+
+
+module reg_038h(
+	clk,
+	rst,
+	
+	ack,
+	enb_block0,
+	enb_block1,
+	enb_block2,
+
+
+
+	CardInterruptSignal_in,
+	CardRemovalSignal_in,
+	CardInsertionSignal_in,
+	BuffReadReadySignal_in,
+	BuffWriteReadySignal_in,
+	DMAInterruptSignal_in,
+	BlockGapEventSignal_in,
+	TransferCompleteSignal_in,
+	CommandCompleteSignal_in,
+
+
+	CardInterruptSignal_out,
+	CardRemovalSignal_out,
+	CardInsertionSignal_out,
+	BuffReadReadySignal_out,
+	BuffWriteReadySignal_out,
+	DMAInterruptSignal_out,
+	BlockGapEventSignal_out,
+	TransferCompleteSignal_out,
+	CommandCompleteSignal_out
+	);
+//Parameters before
+parameter width = 16;
+
+//INPUT & OUTPUT DECLARATION
+
+
+input rst;						// reset
+input clk;						// clock
+input enb_block0;
+input enb_block1;				// ENABLE BLOCKS
+input enb_block2;
+output 	ack;
+
+
+input CardInterruptSignal_in;
+input CardRemovalSignal_in;
+input CardInsertionSignal_in;
+input BuffReadReadySignal_in;
+input BuffWriteReadySignal_in;
+input DMAInterruptSignal_in;
+input BlockGapEventSignal_in;
+input TransferCompleteSignal_in;
+input CommandCompleteSignal_in;
+
+
+output CardInterruptSignal_out;
+output CardRemovalSignal_out;
+output CardInsertionSignal_out;
+output BuffReadReadySignal_out;
+output BuffWriteReadySignal_out;
+output DMAInterruptSignal_out;
+output BlockGapEventSignal_out;
+output TransferCompleteSignal_out;
+output CommandCompleteSignal_out;
+
+
+//REG SIZE
+wire [(width-1):0] data_in;
+
+//WIRES
+	//Regular Blocks
+	wire rst;		
+	wire clk;
+	wire enb_block0;
+	wire enb_block1;
+	wire enb_block2;
+	reg ack;
+	//INPUTS
+	
+	wire CardInterruptSignal_in;
+	wire CardRemovalSignal_in;
+	wire CardInsertionSignal_in;
+	wire BuffReadReadySignal_in;
+	wire BuffWriteReadySignal_in;
+	wire DMAInterruptSignal_in;
+	wire BlockGapEventSignal_in;
+	wire TransferCompleteSignal_in;
+	wire CommandCompleteSignal_in;
+
+	//OUTPUTS
+	
+	wire CardInterruptSignal_out;
+	wire CardRemovalSignal_out;
+	wire CardInsertionSignal_out;
+	wire BuffReadReadySignal_out;
+	wire BuffWriteReadySignal_out;
+	wire DMAInterruptSignal_out;
+	wire BlockGapEventSignal_out;
+	wire TransferCompleteSignal_out;
+	wire CommandCompleteSignal_out;
+
+//REG
+	//OUTPUTS
+	reg [(width-1):0] data_out;
+
+
+//REG INPUT OUTPUT ASSIGNS
+	//RESERVED
+	assign data_in [15:9] = 0 ;
+
+	//INPUTS
+	assign data_in [15] = 0;
+	assign data_in [8] = CardInterruptSignal_in;
+	assign data_in [7] = CardRemovalSignal_in;
+	assign data_in [6] = CardInsertionSignal_in;
+	assign data_in [5] = BuffReadReadySignal_in;
+	assign data_in [4] = BuffWriteReadySignal_in;
+	assign data_in [3] = DMAInterruptSignal_in;
+	assign data_in [2] = BlockGapEventSignal_in;
+	assign data_in [1] = TransferCompleteSignal_in;
+	assign data_in [0] = CommandCompleteSignal_in;
+
+
+	//OUTPUTS
+	
+	assign CardInterruptSignal_out = data_out [8];
+	assign CardRemovalSignal_out = data_out [7];
+	assign CardInsertionSignal_out = data_out [6];
+	assign BuffReadReadySignal_out = data_out [5];
+	assign BuffWriteReadySignal_out = data_out [4];
+	assign DMAInterruptSignal_out = data_out [3];
+	assign BlockGapEventSignal_out = data_out [2];
+	assign TransferCompleteSignal_out = data_out [1];
+	assign CommandCompleteSignal_out = data_out [0];
+
+//Bloque secuencial
+always @(posedge clk) begin
+	if (rst) begin
+		// reset
+		data_out <= 32'b0;
+	end
+	else if (enb_block0 || enb_block1 || enb_block2) begin
+		data_out <= data_in;
+	end
+	else begin
+		data_out <= data_out;
+	end
+end
+
+
+//Bloque combinacional
+always @(*) begin
+	if (data_in == data_out) begin
+		ack = 1'b1;		
+	end
+	else begin
+		ack = 1'b0;
+	end
+end
+
+endmodule
+
+
+
+//STATUS REGISTER
+module reg_03Ah(
+	clk,
+	rst,
+	
+	ack,
+	enb_block0,
+	enb_block1,
+	enb_block2,
+
+
+	VendorErrSignal_in,
+	ADMAErrSignal_in,
+	AutoCMD12ErrSignal_in,
+	CurrentLimitErrSignal_in,
+	DataEndBitErrSignal_in,
+	DataCRCErrSignal_in,
+	DataTimeoutErrSignal_in,
+	CommandIndexErrSignal_in,
+	CommandEndBitErrSignal_in,
+	CommandCRCErrSignal_in,
+	CommandTimeoutErrSignal_in,
+
+	VendorErrSignal_out,
+	ADMAErrSignal_out,
+	AutoCMD12ErrSignal_out,
+	CurrentLimitErrSignal_out,
+	DataEndBitErrSignal_out,
+	DataCRCErrSignal_out,
+	DataTimeoutErrSignal_out,
+	CommandIndexErrSignal_out,
+	CommandEndBitErrSignal_out,
+	CommandCRCErrSignal_out,
+	CommandTimeoutErrStatus_out
+	
+	);
+//Parameters before
+parameter width = 16;
+
+//INPUT & OUTPUT DECLARATION
+
+
+input rst;						// reset
+input clk;						// clock
+input enb_block0;
+input enb_block1;				// ENABLE BLOCKS
+input enb_block2;
+output 	ack;
+
+input [3:0] VendorErrSignal_in;
+input ADMAErrSignal_in;
+input AutoCMD12ErrSignal_in;
+input CurrentLimitErrSignal_in;
+input DataEndBitErrSignal_in;
+input DataCRCErrSignal_in;
+input DataTimeoutErrSignal_in;
+input CommandIndexErrSignal_in;
+input CommandEndBitErrSignal_in;
+input CommandCRCErrSignal_in;
+input CommandTimeoutErrSignal_in;
+
+output [3:0] VendorErrSignal_out;
+output ADMAErrSignal_out;
+output AutoCMD12ErrSignal_out;
+output CurrentLimitErrSignal_out;
+output DataEndBitErrSignal_out;
+output DataCRCErrSignal_out;
+output DataTimeoutErrSignal_out;
+output CommandIndexErrSignal_out;
+output CommandEndBitErrSignal_out;
+output CommandCRCErrSignal_out;
+output CommandTimeoutErrSignal_out;
+
+
+//REG SIZE
+wire [(width-1):0] data_in;
+
+//WIRES
+	//Regular Blocks
+	wire rst;		
+	wire clk;
+	wire enb_block0;
+	wire enb_block1;
+	wire enb_block2;
+	reg ack;
+	//INPUTS
+	wire [3:0] VendorErrSignal_in;
+	wire ADMAErrSignal_in;
+	wire AutoCMD12ErrSignal_in;
+	wire CurrentLimitErrSignal_in;
+	wire DataEndBitErrSignal_in;
+	wire DataCRCErrSignal_in;
+	wire DataTimeoutErrSignal_in;
+	wire CommandIndexErrSignal_in;
+	wire CommandEndBitErrSignal_in;
+	wire CommandCRCErrSignal_in;
+	wire CommandTimeoutErrSignal_in;
+
+	//OUTPUTS
+	wire [3:0] VendorErrSignal_out;
+	wire ADMAErrSignal_out;
+	wire AutoCMD12ErrSignal_out;
+	wire CurrentLimitErrSignal_out;
+	wire DataEndBitErrSignal_out;
+	wire DataCRCErrSignal_out;
+	wire DataTimeoutErrSignal_out;
+	wire CommandIndexErrSignal_out;
+	wire CommandEndBitErrSignal_out;
+	wire CommandCRCErrSignal_out;
+	wire CommandTimeoutErrSignal_out;
+//REG
+	//OUTPUTS
+	reg [(width-1):0] data_out;
+
+
+//REG INPUT OUTPUT ASSIGNS
+	//RESERVED
+	assign data_in [11:10] = 0 ;
+
+	//INPUTS
+	assign data_in [15:12] = VendorErrSignal_in;
+	assign data_in [9] = ADMAErrSignal_in;
+	assign data_in [8] = AutoCMD12ErrSignal_in;
+	assign data_in [7] = CurrentLimitErrSignal_in;
+	assign data_in [6] = DataEndBitErrSignal_in;
+	assign data_in [5] = DataCRCErrSignal_in;
+	assign data_in [4] = DataTimeoutErrSignal_in;
+	assign data_in [3] = CommandIndexErrSignal_in;
+	assign data_in [2] = CommandEndBitErrSignal_in;
+	assign data_in [1] = CommandCRCErrSignal_in;
+	assign data_in [0] = CommandTimeoutErrSignal_in;
+
+
+	//OUTPUTS
+	assign VendorErrSignal_out = data_out [15:12];
+	assign ADMAErrSignal_out = data_out [9];
+	assign AutoCMD12ErrSignal_out = data_out [8];
+	assign CurrentLimitErrSignal_out = data_out [7];
+	assign DataEndBitErrSignal_out = data_out [6];
+	assign DataCRCErrSignal_out = data_out [5];
+	assign DataTimeoutErrSignal_out = data_out [4];
+	assign CommandIndexErrSignal_out = data_out [3];
+	assign CommandEndBitErrSignal_out = data_out [2];
+	assign CommandCRCErrSignal_out = data_out [1];
+	assign CommandTimeoutErrSignal_out = data_out [0];
+
+//Bloque secuencial
+always @(posedge clk) begin
+	if (rst) begin
+		// reset
+		data_out <= 32'b0;
+	end
+	else if (enb_block0 || enb_block1 || enb_block2) begin
+		data_out <= data_in;
+	end
+	else begin
+		data_out <= data_out;
+	end
+end
+
+
+//Bloque combinacional
+always @(*) begin
+	if (data_in == data_out) begin
+		ack = 1'b1;		
+	end
+	else begin
+		ack = 1'b0;
+	end
+end
+
+endmodule
+
+
+
+
+
+module reg_058h(
+	clk,
+	rst,
+	
+	ack,
+	enb_block0,
+	enb_block1,
+	enb_block2,
+
+
+	AdmaSystemAddress_in,
+
+	AdmaSystemAddress_out
+
+	
+	);
+//Parameters before
+parameter width = 64;
+
+//INPUT & OUTPUT DECLARATION
+
+
+input rst;						// reset
+input clk;						// clock
+input enb_block0;
+
+output 	ack;
+
+input AdmaSystemAddress_in;
+
+output AdmaSystemAddress_out;
+
+
+//REG SIZE
+wire [(width-1):0] data_in;
+
+//WIRES
+	//Regular Blocks
+	wire rst;		
+	wire clk;
+	wire enb_block0;
+	wire enb_block1;
+	wire enb_block2;
+	reg ack;
+	//INPUTS
+	wire AdmaSystemAddress_in;
+
+	//OUTPUTS
+	wire AdmaSystemAddress_out;
+//REG
+	//OUTPUTS
+	reg [(width-1):0] data_out;
+
+
+//REG INPUT OUTPUT ASSIGNS
+	//RESERVED
+
+
+	//INPUTS
+	assign data_in = AdmaSystemAddress_in;
+
+	//OUTPUTS
+	assign AdmaSystemAddress_out = data_out;
+
+
+//Bloque secuencial
+always @(posedge clk) begin
+	if (rst) begin
+		// reset
+		data_out <= 64'b0;
 	end
 	else if (enb_block0 || enb_block1 || enb_block2) begin
 		data_out <= data_in;
