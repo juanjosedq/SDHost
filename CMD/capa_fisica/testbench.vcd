@@ -1,5 +1,5 @@
 $date
-	Tue Nov 29 22:45:00 2016
+	Thu Dec  8 10:20:13 2016
 $end
 $version
 	Icarus Verilog
@@ -69,7 +69,7 @@ $var integer 32 @ count [31:0] $end
 $upscope $end
 $scope module control1 $end
 $var wire 1 A no_response $end
-$var wire 15 B pad_response [14:0] $end
+$var wire 128 B pad_response [127:0] $end
 $var wire 1 1 reception_complete $end
 $var wire 1 . transmission_complete $end
 $var wire 1 " strobe_in $end
@@ -90,7 +90,7 @@ $var reg 1 E problem $end
 $var reg 1 F prueba $end
 $var reg 1 0 reset_wrapper $end
 $var reg 1 G reset_wrapper_2 $end
-$var reg 15 H response [14:0] $end
+$var reg 128 H response [127:0] $end
 $var reg 8 I state [7:0] $end
 $var reg 1 ! strobe_out $end
 $var integer 32 J count [31:0] $end
@@ -122,13 +122,13 @@ $dumpvars
 b1111000011110000111100001111000011110000 K
 b0 J
 b1 I
-b0 H
+bx000000000000000 H
 0G
 0F
 0E
 b10 D
 0C
-bx B
+b0xxxxxxxxxxxxxxx B
 zA
 b0 @
 bx ?
@@ -176,9 +176,9 @@ z*
 0.
 0#
 #3000
+b0 B
 b0 3
 b0 ?
-b0 B
 b0 =
 09
 1#
@@ -508,9 +508,9 @@ b10 J
 0#
 #121000
 b11 >
+b10000000000000 B
 b10000000000000 3
 b10000000000000 ?
-b10000000000000 B
 b1 @
 1#
 #122000
@@ -526,9 +526,9 @@ b100 J
 #125000
 09
 b101 >
+b10100000000000 B
 b10100000000000 3
 b10100000000000 ?
-b10100000000000 B
 08
 b11 @
 1#
@@ -537,9 +537,9 @@ b11 @
 b101 J
 0#
 #127000
+b10000000000000 B
 b10000000000000 3
 b10000000000000 ?
-b10000000000000 B
 b110 >
 b100 @
 1#
@@ -571,9 +571,9 @@ b111 @
 b1001 J
 0#
 #135000
+b10000010000000 B
 b10000010000000 3
 b10000010000000 ?
-b10000010000000 B
 b1010 >
 b1000 @
 1#
@@ -582,9 +582,9 @@ b1010 J
 0#
 #137000
 b1011 >
+b10000010100000 B
 b10000010100000 3
 b10000010100000 ?
-b10000010100000 B
 b1001 @
 1#
 #138000
@@ -600,9 +600,9 @@ b1100 J
 #141000
 09
 b1101 >
+b10000010101000 B
 b10000010101000 3
 b10000010101000 ?
-b10000010101000 B
 08
 b1011 @
 1#
@@ -611,9 +611,9 @@ b1011 @
 b1101 J
 0#
 #143000
+b10000010100000 B
 b10000010100000 3
 b10000010100000 ?
-b10000010100000 B
 b1110 >
 b1100 @
 1#
@@ -637,9 +637,9 @@ b1110 @
 b10000 J
 0#
 #149000
-b1000000 D
 b10000010100000 $
 b10000010100000 /
+b1000000 D
 b10000010100000 H
 1!
 b100000 I
@@ -651,12 +651,12 @@ b0 @
 b0 J
 0#
 #151000
+b0 $
+b0 /
 02
 06
 07
 05
-b0 $
-b0 /
 b0 H
 0!
 b10010 >

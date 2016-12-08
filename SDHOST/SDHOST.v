@@ -1,13 +1,15 @@
 `include "CMD.v"
 `include "reg.v"
 
-module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg);
+module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg, cmd_pin_in, cmd_pin_out);
 
 	input 		clock;
 	input 		reset;
 	input [15:0]	cpu_in_00eh;
 	input [31:0]	cpu_in_008h;
 	input		sd_clock;
+	input		cmd_pin_in;
+	input		cmd_pin_out;
 
 	output [127:0] response_outReg;
 
@@ -16,6 +18,8 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg)
 	wire [15:0]	cpu_in_00eh;
 	wire [31:0]	cpu_in_008h;
 	wire		sd_clock;
+	wire		cmd_pin_in;
+	wire		cmd_pin_out;
 
 	reg [127:0] 	response_outReg;
 
@@ -31,9 +35,8 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg)
 					.cmd_index(command_index__outReg),
 					.timeout_enable(),
 					.command_complete(),
-					.command_index_error(),
-					.cmd_pin_in(),
-					.cmd_pin_out(),
+					.cmd_pin_in(cmd_pin_in),
+					.cmd_pin_out(cmd_pin_out),
 					.sd_clock(sd_clock),
 					.clock(clock),
 					.reset(reset),

@@ -6,7 +6,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
    input           ack_in;				// Sincronizacion (CMD)
    input           idle_in;				// Ir al estado Idle (CMD)
    input           no_response;				// No esperar una respuesta (interna)
-   input [14 : 0] pad_response;			// Trama recibida (wrapper S-P)
+   input [127 : 0] pad_response;			// Trama recibida (wrapper S-P)
    input 	   reception_complete;			// Recepcion completa (wrapper S-P)
    input 	   transmission_complete;		// Transmision completa (wrapper P-S)
    input 	   reset;				// Reinicio
@@ -14,7 +14,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 
    output 	    ack_out;				// Sincronizacion (CMD)
    output 	    strobe_out;				// Proceso concluido (CMD)
-   output [14 : 0] response;				// trama recibida (CMD)
+   output [127 : 0] response;				// trama recibida (CMD)
    output 	    command_timeout;			// Ocurrencia del timeout (CMD-Regs)
    output 	    load_send;				// Enviar o cargar (P-S)
    output 	    enable_pts_wrapper;			// Habilitar paralelo a serie (wrapper P-S)
@@ -30,7 +30,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
    wire           ack_in;
    wire           idle_in;
    wire           no_response;
-   wire [14 : 0] pad_response;
+   wire [127 : 0] pad_response;
    wire 	  reception_complete;
    wire 	  transmission_complete;
    wire 	  reset;
@@ -38,7 +38,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 
    reg  	 ack_out;
    reg 	         strobe_out;
-   reg [14 : 0] response;
+   reg [127 : 0] response;
    reg   	 command_timeout;
    reg 	         load_send;
    reg		 reset_wrapper;
@@ -180,7 +180,7 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 
 	     ack_out                <= 0;
 	     strobe_out             <= 0;
-	     response [14 : 0]     <= 0;
+	     response [127 : 0]     <= 0;
              command_timeout        <= 0;
 	     load_send              <= 0;
 	     enable_pts_wrapper     <= 0;
