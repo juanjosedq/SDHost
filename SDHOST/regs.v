@@ -138,6 +138,7 @@ module reg_000h(
 	ack,
 	enb_block0,
 
+
 	SDMA_System_Address_in,
 
 	SDMA_System_Address_out,
@@ -427,9 +428,9 @@ parameter width = 32;
 input rst;						// reset
 input clk;						// clock
 
-input	[32:0] CommandArgument_in;
+input	[31:0] CommandArgument_in;
 
-output	[32:0] CommandArgument_out;
+output	[31:0] CommandArgument_out;
 
 //REG SIZE
 wire [(width-1):0] data_in;
@@ -440,10 +441,10 @@ wire [(width-1):0] data_in;
 	wire clk;
 
 	//INPUTS
-	wire	[32:0] CommandArgument_in;
+	wire	[31:0] CommandArgument_in;
 
 	//OUTPUTS
-	wire	[32:0] CommandArgument_out;
+	wire	[31:0] CommandArgument_out;
 
 
 //REG
@@ -637,14 +638,14 @@ input rst;						// reset
 input clk;						// clock
 
 
-input	[4:0] CommandIndex_in;
+input	[5:0] CommandIndex_in;
 input	[1:0] CommandType_in;
 input	DataPresentState_in;
 input	CommandIndezCheckEnable_in;		// DATA IN
 input	CommandCRCCheckEnable_in;
 input	[1:0] ResponseTypeSelect_in;
 
-output	[4:0] CommandIndex_out;
+output	[5:0] CommandIndex_out;
 output	[1:0] CommandType_out;
 output	DataPresentState_out;			// DATA OUT
 output	CommandIndezCheckEnable_out;
@@ -660,7 +661,7 @@ wire [(width-1):0] data_in;
 	wire clk;
 
 	//INPUTS
-	wire	[4:0] CommandIndex_in;
+	wire	[5:0] CommandIndex_in;
 	wire	[1:0] CommandType_in;
 	wire	DataPresentState_in;
 	wire	CommandIndezCheckEnable_in;
@@ -668,7 +669,7 @@ wire [(width-1):0] data_in;
 	wire	[1:0] ResponseTypeSelect_in;
 
 	//OUTPUTS
-	wire	[4:0] CommandIndex_out;
+	wire	[5:0] CommandIndex_out;
 	wire	[1:0] CommandType_out;
 	wire	DataPresentState_out;
 	wire	CommandIndezCheckEnable_out;
@@ -2685,6 +2686,7 @@ endmodule
 module reg_03Ah(
 	clk,
 	rst,
+	
 	ack,
 	enb_block0,
 	enb_block1,
@@ -2865,6 +2867,7 @@ module reg_058h(
 	enb_block0,
 
 
+
 	AdmaSystemAddress_in,
 
 	AdmaSystemAddress_out
@@ -2896,8 +2899,7 @@ wire [(width-1):0] data_in;
 	wire rst;		
 	wire clk;
 	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
+
 	reg ack;
 	//INPUTS
 	wire AdmaSystemAddress_in;
@@ -2926,7 +2928,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 64'b0;
 	end
-	else if (enb_block0 ) begin
+	else if (enb_block0) begin
 		data_out <= data_in;
 	end
 	else begin
