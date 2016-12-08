@@ -1,7 +1,7 @@
 `include "CMD.v"
 `include "regs.v"
 
-module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg, cmd_pin_in, cmd_pin_out, 024h_CPU), 024h_CPU_out;
+module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CPU_out, 00eh_CPU, 00eh_CPU_out, 008h_CPU, 008h_CPU_out, 032h_CPU, 032h_CPU_out);
 
 	input 		clock;
 	input 		reset;
@@ -10,10 +10,18 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 	input		sd_clock;
 	input		cmd_pin_in;
 	input		cmd_pin_out;
+
 	input [31:0]    024h_CPU;
+	input [15:0]    00eh_CPU;
+	input [15:0]    008h_CPU;
+	input [15:0]    032h_CPU;
 
 	output [127:0] response_outReg;
+
 	output [31:0]  024h_CPU_out;
+	output [15:0]    00eh_CPU_out;
+	output [15:0]    008h_CPU_out;
+	output [15:0]    032h_CPU_out;
 
 	wire  		clock;
 	wire		reset;
@@ -39,11 +47,11 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 	wire [15:0]	00eh_CPU;
 	wire [15:0] 00eh_CPU_out;
 
-	wire [31:0]	008h_CPU;
-	wire [31:0] 008h_CPU_out;
+	wire [15:0]	008h_CPU;
+	wire [15:0] 008h_CPU_out;
 
-	wire [31:0]	032h_CPU;
-	wire [31:0] 032h_CPU_out;
+	wire [15:0]	032h_CPU;
+	wire [15:0] 032h_CPU_out;a
 
 
 
