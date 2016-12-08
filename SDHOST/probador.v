@@ -1,6 +1,5 @@
 `timescale 1 ns / 1 ps
-
-module probador (clock, sd_clock, reset, cmd_pin_in, 024h_CPU, 00eh_CPU, 008h_CPU, 032h_CPU);
+module probador(clock, sd_clock, reset, cmd_pin_in, 024h_CPU, 00eh_CPU, 008h_CPU, 032h_CPU)
 
 	output 		clock;
 	output 		reset;

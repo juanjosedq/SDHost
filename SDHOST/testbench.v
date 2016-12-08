@@ -23,23 +23,35 @@ module testbench;                                // Se define un modulo de prueb
  
 
   initial begin                             // Bloque que se ejecuta al inicio
-     $dumpfile("testbench.vcd");                 // El resultado se guarda en test.vcd
-     $dumpvars(0,testbench);
+     $dumpfile("testbenc.vcd");                 // El resultado se guarda en test.vcd
+     .$dumpvars(0,testbench);
   end
        
 
   probador valores (		.clock(clock),
-				.sd_clock(sd_clock),
-				.reset(reset),
-				.cmd_pin_in(cmd_pin_in),
-				.024h_CPU(),
-				.00eh_CPU(),
-				.008h_CPU(),
-				.032h_CPU()
-				);
+							.sd_clock(sd_clock),
+							.reset(reset),
+							.cmd_pin_in(cmd_pin_in),
+							.024h_CPU(024h_CPU),
+							.00eh_CPU(00eh_CPU),
+							.008h_CPU(008h_CPU),
+							.032h_CPU(032h_CPU)
+					);
 
-  SDHOST SDHOST (		.clock(),
-				.sd_clock(), reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CPU_out, 00eh_CPU, 00eh_CPU_out, 008h_CPU, 008h_CPU_out, 032h_CPU, 032h_CPU_out);
-   
+  SDHOST SDHOST1 (		.clock(clock),
+						.sd_clock(sd_clock),
+						.reset(reset),
+						.cmd_pin_in(cmd_pin_in),
+						.cmd_pin_out(cmd_pin_out),
+						.024h_CPU(024h_CPU),
+						.024h_CPU_out(024h_CPU_out),
+						.00eh_CPU(00eh_CPU),
+						.00eh_CPU_out(00eh_CPU_out),
+						.008h_CPU(008h_CPU),
+						.008h_CPU_out(008h_CPU_outh),
+						.032h_CPU(032h_CPU),
+						.032h_CPU_out(032h_CPU_out)
+						);
+		   
 
 endmodule // test
