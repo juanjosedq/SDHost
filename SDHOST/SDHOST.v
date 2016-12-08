@@ -1,5 +1,11 @@
 `include "CMD.v"
-`include "regs.v"
+`include "reg_00eh.v"
+`include "reg_008h.v"
+`include "reg_010h.v"
+`include "reg_030h.v"
+`include "reg_032h.v"
+`include "reg_024h.v"
+
 
 module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CPU_out, 00eh_CPU, 00eh_CPU_out, 008h_CPU, 008h_CPU_out, 032h_CPU, 032h_CPU_out);
 
@@ -50,15 +56,15 @@ module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CP
 	wire [15:0] 008h_CPU_out;
 
 	wire [15:0]	032h_CPU;
-	wire [15:0] 032h_CPU_out;a
+	wire [15:0] 032h_CPU_out;
 
 
 
 
 
-	CMD CMD1 (		.new_command([0] 024h_CPU_out),
+	CMD CMD1 (			.new_command(024h_CPU_out[0]),
 					.cmd argument(008h_CPU_out),
-					.cmd_index([13:8] 00eh_CPU_out),
+					.cmd_index(00eh_CPU_out [13:8),
 					.timeout_enable(032h_CPU_out [0]),
 					.command_complete(command_complete),
 					.cmd_pin_in(cmd_pin_in),
@@ -133,7 +139,7 @@ module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CP
 					.CommandComplete_out(030h_CPU_out [0])
 					);
 
-	reg_032h(		.clk(clock),
+	reg_032h 032h (			.clk(clock),
 					.rst(reset),
 
 
