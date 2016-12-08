@@ -5,11 +5,10 @@ module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CP
 
 	input 		clock;
 	input 		reset;
-	input [15:0]	cpu_in_00eh;
-	input [31:0]	cpu_in_008h;
 	input		sd_clock;
 	input		cmd_pin_in;
-	input		cmd_pin_out;
+
+	output		cmd_pin_out;
 
 	input [31:0]    024h_CPU;
 	input [15:0]    00eh_CPU;

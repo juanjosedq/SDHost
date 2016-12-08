@@ -1,22 +1,25 @@
 module testbench;                                // Se define un modulo de prueba
 
-   wire           new_command;         
-   wire           clock;              
-   wire           reset;                
-   wire [31 : 0]  cmd_argument;       
-   wire [5 : 0]   cmd_index;         
-   wire 	  timeout_enable;      
-   wire 	  sd_clock;       
-   wire 	  cmd_pin_in;                            
-   
-   wire [127 : 0] response;            
-   wire 	  command_complete;     
-   wire 	  no_response;         
-   wire 	  cmd_pin_out; 
-   wire		  enable_response;
-   wire		  ack_response;
-   wire		  enable_command_complete;
-   wire		  ack_command_complete;         
+	wire 		clock;
+	wire 		reset;
+	wire		sd_clock;
+	wire		cmd_pin_in;
+
+	wire		cmd_pin_out;
+
+	wire [31:0]    024h_CPU;
+	wire [15:0]    00eh_CPU;
+	wire [15:0]    008h_CPU;
+	wire [15:0]    032h_CPU;
+
+	wire [127:0] response_outReg;
+
+	wire [31:0]    024h_CPU_out;
+	wire [15:0]    00eh_CPU_out;
+	wire [15:0]    008h_CPU_out;
+	wire [15:0]    032h_CPU_out;
+
+       
  
 
   initial begin                             // Bloque que se ejecuta al inicio
@@ -25,9 +28,18 @@ module testbench;                                // Se define un modulo de prueb
   end
        
 
-  probador valores (new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, sd_clock, cmd_pin_in, no_response, ack_response, ack_command_complete);
+  probador valores (		.clock(clock),
+				.sd_clock(sd_clock),
+				.reset(reset),
+				.cmd_pin_in(cmd_pin_in),
+				.024h_CPU(),
+				.00eh_CPU(),
+				.008h_CPU(),
+				.032h_CPU()
+				);
 
-  CMD CMD1 (new_command, cmd_argument, cmd_index, timeout_enable, command_complete, cmd_pin_in, cmd_pin_out, sd_clock, clock, reset, response, no_response, enable_response, ack_response, enable_command_complete, ack_command_complete);
+  SDHOST SDHOST (		.clock(),
+				.sd_clock(), reset, cmd_pin_in, cmd_pin_out, 024h_CPU, 024h_CPU_out, 00eh_CPU, 00eh_CPU_out, 008h_CPU, 008h_CPU_out, 032h_CPU, 032h_CPU_out);
    
 
 endmodule // test

@@ -1,56 +1,56 @@
 `timescale 1 ns / 1 ps
 
-module probador (new_command, clock, reset, cmd_argument, cmd_index, timeout_enable, sd_clock, cmd_pin_in, no_response, ack_response, ack_command_complete);
+module probador (clock, sd_clock, reset, cmd_pin_in, 024h_CPU, 00eh_CPU, 008h_CPU, 032h_CPU);
 
-   output           new_command;           //Nuevo procreso del CMD  
-   output           clock;                 //Reloj del dispositivo 
-   output           reset;                 //Reinicio
-   output [31 : 0]  cmd_argument;          //Argumento del comando
-   output [5 : 0]   cmd_index;             //Indice del comando
-   output 	    timeout_enable;        //Habilitacion del timeout
-   output 	    sd_clock;      
-   output 	    cmd_pin_in;
-   output	    no_response;
-   output	    ack_response;
-   output	    ack_command_complete;         
+	output 		clock;
+	output 		reset;
+	output		sd_clock;
+	output		cmd_pin_in;
 
-   reg           new_command;
-   reg           clock;  
-   reg           reset;   
-   reg [31 : 0]  cmd_argument;        
-   reg [5 : 0]   cmd_index;        
-   reg 	         timeout_enable;      
-   reg 	         sd_clock;       
-   reg 	         cmd_pin_in;
-   reg		 no_response; 
-   reg		 ack_response;
-   reg		 ack_command_complete;            
+	output [31:0]    024h_CPU;
+	output [15:0]    00eh_CPU;
+	output [15:0]    008h_CPU;
+	output [15:0]    032h_CPU;       
+
+	reg 		clock;
+	reg 		reset;
+	reg		sd_clock;
+	reg		cmd_pin_in;
+
+	reg [31:0]    024h_CPU;
+	reg [15:0]    00eh_CPU;
+	reg [15:0]    008h_CPU;
+	reg [15:0]    032h_CPU;          
          
 
 
    initial begin
-      cmd_index = 6'b011000;
-      cmd_argument = 32'hFF99FF88;
-      reset = 0;
-      timeout_enable = 1;
-      new_command = 0;
+      reset = 1;
       clock = 0;
       sd_clock = 0;
-      cmd_pin_in = 1;
-      no_response = 0;
-      ack_response = 0;
-      ack_command_complete = 0;
 
+      cmd_pin_in = 0;
 
-            
-     #30 new_command = 1;
+      024h_CPU [31:4]= 28'hCAFECAF;
+      024h_CPU [3:0]= 4'b0000;
 
-     #400
-     #20 ack_response = 1;
-     #20 ack_command_complete = 1;
+      00eh_CPU [7:0]= 8'hCA;
+      00eh_CPU [13:8]= 6'b110011;
+      00eh_CPU [15:14]= 6'b00;
+
+      008h_CPU [31:0]= 32'hBEBEBEBE;       
+     
+      032h_CPU [15:4]= 8'hFEA;
+      0032h_CPU [3:0]= 4'b0001;
+
+     #2 reset = 0;
+
+     #30 024h_CPU [3:0] = 4'b0001;
+
+     #800
      
 
-     #20 $finish;
+     $finish;
    end
 
    always #1 clock = !clock;
