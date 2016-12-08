@@ -137,8 +137,6 @@ module reg_000h(
 	
 	ack,
 	enb_block0,
-	enb_block1,
-	enb_block2,
 
 	SDMA_System_Address_in,
 
@@ -170,8 +168,7 @@ wire [(width-1):0] data_in;
 	wire rst;		
 	wire clk;
 	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
+
 	reg ack;
 	//INPUTS
 	wire	[31:0] SDMA_System_Address_in;
@@ -2728,7 +2725,6 @@ endmodule
 module reg_03Ah(
 	clk,
 	rst,
-	
 	ack,
 	enb_block0,
 	enb_block1,
@@ -2757,7 +2753,7 @@ module reg_03Ah(
 	CommandIndexErrSignal_out,
 	CommandEndBitErrSignal_out,
 	CommandCRCErrSignal_out,
-	CommandTimeoutErrStatus_out
+	CommandTimeoutErrSignal_out
 	
 	);
 //Parameters before
@@ -2907,8 +2903,6 @@ module reg_058h(
 	
 	ack,
 	enb_block0,
-	enb_block1,
-	enb_block2,
 
 
 	AdmaSystemAddress_in,
@@ -2972,7 +2966,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 64'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (enb_block0 ) begin
 		data_out <= data_in;
 	end
 	else begin
