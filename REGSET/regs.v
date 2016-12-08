@@ -905,10 +905,6 @@ module reg_024h(
 	clk,
 	rst,
 	
-	ack,
-	enb_block0,
-	enb_block1,
-	enb_block2,
 
 	CMDLineSignalLevel_in,
 	DAT3LineSignalLevel_in,
@@ -947,10 +943,6 @@ parameter width = 32;
 
 input rst;						// reset
 input clk;						// clock
-input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
-output 	ack;
 
 input CMDLineSignalLevel_in;
 input [3:0] DAT3LineSignalLevel_in;
@@ -987,10 +979,7 @@ wire [(width-1):0] data_in;
 	//Regular Blocks
 	wire rst;		
 	wire clk;
-	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
-	reg ack;
+
 	//INPUTS
 	wire CMDLineSignalLevel_in;
 	wire [3:0] DAT3LineSignalLevel_in;
@@ -1069,7 +1058,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (1) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -1079,14 +1068,7 @@ end
 
 
 //Bloque combinacional
-always @(*) begin
-	if (data_in == data_out) begin
-		ack = 1'b1;		
-	end
-	else begin
-		ack = 1'b0;
-	end
-end
+
 
 endmodule
 
@@ -1884,8 +1866,6 @@ module reg_030h(
 	
 	ack,
 	enb_block0,
-	enb_block1,
-	enb_block2,
 
 
 	ErrInterrupt_in,
@@ -1955,8 +1935,7 @@ wire [(width-1):0] data_in;
 	wire rst;		
 	wire clk;
 	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
+
 	reg ack;
 	//INPUTS
 	wire ErrInterrupt_in;
@@ -2022,7 +2001,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (enb_block0 ) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2047,24 +2026,18 @@ endmodule
 module reg_032h(
 	clk,
 	rst,
-	
-	ack,
-	enb_block0,
-	enb_block1,
-	enb_block2,
 
-
-	VendorErr_in,
-	ADMAErr_in,
-	AutoCMD12Err_in,
-	CurrentLimitErr_in,
-	DataEndBitErr_in,
-	DataCRCErr_in,
-	DataTimeoutErr_in,
-	CommandIndexErr_in,
-	CommandEndBitErr_in,
-	CommandCRCErr_in,
-	CommandTimeoutErr_in,
+	VendorErr_in, 
+	ADMAErr_in, 
+	AutoCMD12Err_in, 
+	CurrentLimitErr_in, 
+	DataEndBitErr_in, 
+	DataCRCErr_in, 
+	DataTimeoutErr_in, 
+	CommandIndexErr_in, 
+	CommandEndBitErr_in, 
+	CommandCRCErr_in, 
+	CommandTimeoutErr_in, 
 
 	VendorErr_out,
 	ADMAErr_out,
@@ -2087,10 +2060,7 @@ parameter width = 16;
 
 input rst;						// reset
 input clk;						// clock
-input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
-output 	ack;
+
 
 input [3:0] VendorErr_in;
 input ADMAErr_in;
@@ -2124,10 +2094,7 @@ wire [(width-1):0] data_in;
 	//Regular Blocks
 	wire rst;		
 	wire clk;
-	wire enb_block0;
-	wire enb_block1;
-	wire enb_block2;
-	reg ack;
+
 	//INPUTS
 	wire [3:0] VendorErr_in;
 	wire ADMAErr_in;
@@ -2195,7 +2162,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 || enb_block1 || enb_block2) begin
+	else if (1) begin
 		data_out <= data_in;
 	end
 	else begin
@@ -2205,14 +2172,7 @@ end
 
 
 //Bloque combinacional
-always @(*) begin
-	if (data_in == data_out) begin
-		ack = 1'b1;		
-	end
-	else begin
-		ack = 1'b0;
-	end
-end
+
 
 endmodule
 

@@ -17,29 +17,43 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 
 	wire  		clock;
 	wire		reset;
-	wire [15:0]	cpu_in_00eh;
-	wire [31:0]	cpu_in_008h;
+
 	wire		sd_clock;
 	wire		cmd_pin_in;
 	wire		cmd_pin_out;
 
 	reg [127:0] 	response_outReg;
 
-	wire   		command_index__outReg;
-	wire		command_argument_outReg;
+	wire command_complete;
 	wire [127:0]	response_outCMD;
 	wire		enable_response;
 	wire		ack_response;
-	wire		new_command;
+
+	wire		enable_command_complete;
+	wire		ack_command_complete;
+
 	wire [31:0]	024h_CPU;
-	wire [31:0]     024h_CPU_out;
+	wire [31:0] 024h_CPU_out;
 
 
-	CMD CMD1 (			.new_command(new_command),
-					.cmd argument(command_argument_outReg),
-					.cmd_index(command_index__outReg),
-					.timeout_enable(),
-					.command_complete(),
+	wire [15:0]	00eh_CPU;
+	wire [15:0] 00eh_CPU_out;
+
+	wire [31:0]	008h_CPU;
+	wire [31:0] 008h_CPU_out;
+
+	wire [31:0]	032h_CPU;
+	wire [31:0] 032h_CPU_out;
+
+
+
+
+
+	CMD CMD1 (		.new_command([0] 024h_CPU_out),
+					.cmd argument(008h_CPU_out),
+					.cmd_index([13:8] 00eh_CPU_out),
+					.timeout_enable(032h_CPU_out [0]),
+					.command_complete(command_complete),
 					.cmd_pin_in(cmd_pin_in),
 					.cmd_pin_out(cmd_pin_out),
 					.sd_clock(sd_clock),
@@ -48,33 +62,35 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 					.response(response_outCMD),
 					.enable_response(enable_response),
 					.ack_response(ack_response),
-					.enable_command_complete(),
-					.ack_command_complete()
+					.enable_command_complete(enable_command_complete),
+					.ack_command_complete(ack_command_complete)
 					);
  
-	reg_00eh 00eh (			.clk(clock),
+	reg_00eh 00eh (	.clk(clock),
 					.rst(reset),
-					.CommandIndex_in(cpu_in_00eh [13:8]),
-					.CommandType_in(cpu_in_00eh [7:6]),
-					.DataPresentState_in(cpu_in_00eh [5]),
-					.CommandIndezCheckEnable_in(cpu_in_00eh [4]),
-					.CommandCRCCheckEnable_in(cpu_in_00eh [3]),
-					.ResponseTypeSelect_in(cpu_in_00eh [1:0]),
-					.CommandIndex_out(command_index__outReg),
-					.CommandType_out(),
-					.DataPresentState_out(),
-					.CommandIndezCheckEnable_out(),
-					.CommandCRCCheckEnable_out(),
-					.ResponseTypeSelect_out(),
+
+					.CommandIndex_in(00eh_CPU [13:8]),
+					.CommandType_in(00eh_CPU [7:6]),
+					.DataPresentState_in(00eh_CPU [5]),
+					.CommandIndezCheckEnable_in(00eh_CPU [4]),
+					.CommandCRCCheckEnable_in(00eh_CPU [3]),
+					.ResponseTypeSelect_in(00eh_CPU [1:0]),
+
+					.CommandIndex_out(00eh_CPU_out [13:8]),
+					.CommandType_out(00eh_CPU_out [7:6]),
+					.DataPresentState_out(00eh_CPU_out [5]),
+					.CommandIndezCheckEnable_out(00eh_CPU_out [4]),
+					.CommandCRCCheckEnable_out(00eh_CPU_out [3]),
+					.ResponseTypeSelect_out(00eh_CPU_out [1:0]),
 					);
 
-	reg_008h 008h(			.clk(clock),
+	reg_008h 008h(	.clk(clock),
 					.rst(reset),
-					.CommandArgument_in(cpu_in_008h),
-					.CommandArgument_out(command_argument_outReg),
+					.CommandArgument_in(008h_CPU),
+					.CommandArgument_out(008h_CPU_out),
 					);
 
-	reg_010h 010h(			.clk(clock),
+	reg_010h 010h(	.clk(clock),
 					.rst(reset),
 					.ack(ack_response),
 					.enb_block0(enable_response),
@@ -82,69 +98,65 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 					.Response_out(response_outReg),
 					);
 
-	reg_030h 030h(			.clk(clock),
+	reg_030h 030h(	.clk(clock),
 					.rst(reset),
-					.ack(),
-					.enb_block0(),
-					.ErrInterrupt_in(),
-					.CardInterrupt_in(),
-					.CardRemoval_in(),
-					.CardInsertion_in(),
-					.BuffReadReady_in(),
-					.BuffWriteReady_in(),
-					.DMAInterrupt_in(),
-					.BlockGapEvent_in(),
-					.TransferComplete_in(),
-					.CommandComplete_in,
+					.ack(ack_command_complete),
+					.enb_block0(enable_command_complete),
 
-					.ErrInterrupt_out,
-					.CardInterrupt_out,
-					.CardRemoval_out,
-					.CardInsertion_out,
-					.BuffReadReady_out,
-					.BuffWriteReady_out,
-					.DMAInterrupt_out,
-					.BlockGapEvent_out,
-					.TransferComplete_out,
-					.CommandComplete_out
+					.ErrInterrupt_in(030h_CPU [15]),
+					.CardInterrupt_in(030h_CPU [8]),
+					.CardRemoval_in(030h_CPU [7]),
+					.CardInsertion_in(030h_CPU [6]),
+					.BuffReadReady_in(030h_CPU [5]),
+					.BuffWriteReady_in(030h_CPU [4]),
+					.DMAInterrupt_in(030h_CPU [3]),
+					.BlockGapEvent_in(030h_CPU [2]),
+					.TransferComplete_in(030h_CPU [1]),
+					.CommandComplete_in(command_complete),
+
+					.ErrInterrupt_out(030h_CPU_out [15]),
+					.CardInterrupt_out(030h_CPU_out [8]),
+					.CardRemoval_out(030h_CPU_out [7]),
+					.CardInsertion_out(030h_CPU_out [6]),
+					.BuffReadReady_out(030h_CPU_out [5]),
+					.BuffWriteReady_out(030h_CPU_out [4]),
+					.DMAInterrupt_out(030h_CPU_out [3]),
+					.BlockGapEvent_out(030h_CPU_out [2]),
+					.TransferComplete_out(030h_CPU_out [1]),
+					.CommandComplete_out(030h_CPU_out [0])
 					);
 
-	reg_032h(			.clk(clock),
+	reg_032h(		.clk(clock),
 					.rst(reset),
-	
-					.ack,
-					.enb_block0,
-					.enb_block1,
-					.enb_block2,
 
 
-					.VendorErr_in,
-					.ADMAErr_in,
-					.AutoCMD12Err_in,
-					.CurrentLimitErr_in,
-					.DataEndBitErr_in,
-					.DataCRCErr_in,
-					.DataTimeoutErr_in,
-					.CommandIndexErr_in,
-					.CommandEndBitErr_in,
-					.CommandCRCErr_in,
-					.CommandTimeoutErr_in,
+					.VendorErr_in(032h_CPU_out [15:12]),
+					.ADMAErr_in(032h_CPU_out [9]),
+					.AutoCMD12Err_in(032h_CPU_out [8]),
+					.CurrentLimitErr_in(032h_CPU_out [7]),
+					.DataEndBitErr_in(032h_CPU_out [6]),
+					.DataCRCErr_in(032h_CPU_out [5]),
+					.DataTimeoutErr_in(032h_CPU_out [4]),
+					.CommandIndexErr_in(032h_CPU_out [3]),
+					.CommandEndBitErr_in(032h_CPU_out [2]),
+					.CommandCRCErr_in(032h_CPU_out [1]),
+					.CommandTimeoutErr_in(032h_CPU_out [0]),
 
-					.VendorErr_out,
-					.ADMAErr_out,
-					.AutoCMD12Err_out,
-					.CurrentLimitErr_out,
-					.DataEndBitErr_out,
-					.DataCRCErr_out,
-					.DataTimeoutErr_out,
-					.CommandIndexErr_out,
-					.CommandEndBitErr_out,
-					.CommandCRCErr_out,
-					.CommandTimeoutErr_out
+					.VendorErr_out(032h_CPU_out [15:12]),
+					.ADMAErr_out(032h_CPU_out [9]),
+					.AutoCMD12Err_out(032h_CPU_out [8]),
+					.CurrentLimitErr_out(032h_CPU_out [7]),
+					.DataEndBitErr_out(032h_CPU_out [6]),
+					.DataCRCErr_out(032h_CPU_out [5]),
+					.DataTimeoutErr_out(032h_CPU_out [4]),
+					.CommandIndexErr_out(032h_CPU_out [3]),
+					.CommandEndBitErr_out(032h_CPU_out [2]),
+					.CommandCRCErr_out(032h_CPU_out [1]),
+					.CommandTimeoutErr_out(032h_CPU_out [0])
 	
 	);
 
-	reg_024h 024h (			.clk(clock),
+	reg_024h 024h (	.clk(clock),
 					.rst(reset),
 
 					.CMDLineSignalLevel_in([24] 024h_CPU),
@@ -161,19 +173,19 @@ module SDHOST(clock, sd_clock, reset, cpu_in_00eh, cpu_in_008h, response_outReg,
 					.CommandInhibitdat_in([1] 024h_CPU),
 					.CommandInhibitcmd_in([0] 024h_CPU),
 	
-					.CMDLineSignalLevel_out(),
-					.DAT3LineSignalLevel_out(),
-					.WriteProtectSwitchPinLevout(),
-					.CardDetectPinLevel_out(),
-					.CardStateStable_out(),
-					.CardInserted_out(),
-					.BufferReadEnable_out(),
-					.BufferWriteEnable_out(),
-					.ReadTransferActive_out(),
-					.WriteTransferActive_out(),
-					.DATlineActive_out(),
-					.CommandInhibitdat_out(),
-					.CommandInhibitcmd_out(new_command),
+					.CMDLineSignalLevel_out([24] 024h_CPU_out),
+					.DAT3LineSignalLevel_out([23:20] 024h_CPU_out),
+					.WriteProtectSwitchPinLevout([19] 024h_CPU_out),
+					.CardDetectPinLevel_out([18] 024h_CPU_out),
+					.CardStateStable_out([17] 024h_CPU_out),
+					.CardInserted_out([16] 024h_CPU_out),
+					.BufferReadEnable_out([11] 024h_CPU_out),
+					.BufferWriteEnable_out([10] 024h_CPU_out),
+					.ReadTransferActive_out([9] 024h_CPU_out),
+					.WriteTransferActive_out([8] 024h_CPU_out),
+					.DATlineActive_out([2] 024h_CPU_out),
+					.CommandInhibitdat_out([1] 024h_CPU_out),
+					.CommandInhibitcmd_out([0] 024h_CPU_out)),
 					);
 
 endmodule
