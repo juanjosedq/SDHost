@@ -1,3 +1,5 @@
+`include "SDHOST.v"
+
 module testbench;                                // Se define un modulo de prueba
 
 	wire 		clock;
