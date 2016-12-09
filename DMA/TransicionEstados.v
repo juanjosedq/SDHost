@@ -228,6 +228,8 @@ end
 
 always @(*) begin  
 case(Present_State)
+
+
 	ST_STOP: begin 
 			SYS_ADR<=Initial_ADMA_System_Address;
 			ADMA_System_Address_Register<=SYS_ADR;
