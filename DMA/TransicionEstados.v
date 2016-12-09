@@ -1,5 +1,5 @@
 
-module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_System_Address, Block_Size_Register, Block_Count_Register, Transfer_Mode_Register, Present_State_Register, Block_Gap_Control_Register, Command_Register, ADMA_System_Address_Register, enb_DMA_Interrupt, ack_DMA_Interrupt,  enb_ADMA_Error, ack_ADMA_Error, enb_Transfer_complete, ack_Transfer_complete, enb_ADMA_System_Address_Register, ack_ADMA_System_Address_Register);
+module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_System_Address, Block_Size_Register, Block_Count_Register, Transfer_Mode_Register, Present_State_Register, Block_Gap_Control_Register, Command_Register, ADMA_System_Address_Register, enb_DMA_Interrupt, ack_DMA_Interrupt,  enb_ADMA_Error, ack_ADMA_Error, enb_Transfer_complete, ack_Transfer_complete, enb_ADMA_System_Address_Register, ack_ADMA_System_Address_Register, Permiso_Transf);
 
 
   parameter ST_STOP  = 4'b0001; //Estados
@@ -38,6 +38,7 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   output ADMA_Error;        //Error Interrupt Status Register    Offset 032h bit 9.
   output Transfer_complete; //Normal_Interrupt_Status_Register   Offset  030h  bit 1.
   output [63:0] ADMA_System_Address_Register; // (Offset 058h) 
+  output Permiso_Transf;
   
   wire ack_DMA_Interrupt;
   wire ack_ADMA_Error;
@@ -55,6 +56,7 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   wire [95:0] Descriptor_Line;
   wire [1:0] Transfer_Type; 
   
+  wire transferencia_finalizada;  
 
   reg enb_DMA_Interrupt=0;
   reg enb_ADMA_Error=0;
@@ -89,12 +91,14 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   reg Continue_Request;
   reg [1:0] Command_Type; 
   reg [3:0] Transfer_Mode_Direction;
+  reg Permiso_Transf=0;
+  
 
 Descriptor_Table  table1   (SYS_ADR, Descriptor_Line);
 
 TipoDeTransferencia t1 (Multi_Single_Block_Select, Block_Count_Enable,Transfer_Type);
 
-
+transferencia tran1 (Permiso_Transf, Data_Transfer_Direction_Select, DAT_LEN, DAT_ADR, transferencia_finalizada);
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -333,8 +337,23 @@ end
  end
 end
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+always @(*) begin 
+	if(Present_State==ST_TFR)  begin
+		Permiso_Transf<=1;
 
-      
+		if(transferencia_finalizada==1)begin
+		TFC<=1;
+		Permiso_Transf<=0;
+		end
+		else begin
+		Permiso_Transf<=Permiso_Transf;
+		end
+	end 
+	else begin
+		Permiso_Transf<=0;
+	end
+end
+///////////////////////////////////////////////////////////////////////////////////////////////////
 endmodule 
 
 
