@@ -11,14 +11,14 @@ module testbench;                                // Se define un modulo de prueb
 
 	wire [31:0]    R024h_CPU;
 	wire [15:0]    R00eh_CPU;
-	wire [15:0]    R008h_CPU;
+	wire [31:0]    R008h_CPU;
 	wire [15:0]    R032h_CPU;
 
 	wire [127:0] response_outReg;
 
 	wire [31:0]    R024h_CPU_out;
 	wire [15:0]    R00eh_CPU_out;
-	wire [15:0]    R008h_CPU_out;
+	wire [31:0]    R008h_CPU_out;
 	wire [15:0]    R032h_CPU_out;
 
        
@@ -36,7 +36,7 @@ module testbench;                                // Se define un modulo de prueb
 							.cmd_pin_in(cmd_pin_in),
 							.R024h_CPU(R024h_CPU),
 							.R00eh_CPU(R00eh_CPU),
-							.R008h_CPU(R08h_CPU),
+							.R008h_CPU(R008h_CPU),
 							.R032h_CPU(R032h_CPU)
 					);
 
@@ -50,7 +50,7 @@ module testbench;                                // Se define un modulo de prueb
 						.R00eh_CPU(R00eh_CPU),
 						.R00eh_CPU_out(R00eh_CPU_out),
 						.R008h_CPU(R008h_CPU),
-						.R008h_CPU_out(R008h_CPU_outh),
+						.R008h_CPU_out(R008h_CPU_out),
 						.R032h_CPU(R032h_CPU),
 						.R032h_CPU_out(R032h_CPU_out)
 						);
