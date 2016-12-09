@@ -124,6 +124,9 @@ module control_cmd(new_command, clock, reset, cmd_argument, cmd_index, timeout_e
 		end
 	     end // if (strobe_in == 1)	
 	   end // case: processing
+
+	default: next_state <= reset_state;
+
       endcase // case (state)
    end // always @ (posedge clock)
    
