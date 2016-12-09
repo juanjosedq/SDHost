@@ -13,6 +13,7 @@ module testbench;                                // Se define un modulo de prueb
 	wire [15:0]    R00eh_CPU;
 	wire [31:0]    R008h_CPU;
 	wire [15:0]    R032h_CPU;
+	wire [15:0]    R030h_CPU;
 
 	wire [127:0] response_outReg;
 
@@ -20,6 +21,7 @@ module testbench;                                // Se define un modulo de prueb
 	wire [15:0]    R00eh_CPU_out;
 	wire [31:0]    R008h_CPU_out;
 	wire [15:0]    R032h_CPU_out;
+	wire [15:0]    R030h_CPU_out;
 
        
  
@@ -28,7 +30,7 @@ module testbench;                                // Se define un modulo de prueb
      $dumpfile("testbench.vcd");                 // El resultado se guarda en test.vcd
      $dumpvars(0,testbench);
   end
-       
+  
 
   probador valores (		.clock(clock),
 							.sd_clock(sd_clock),
@@ -37,7 +39,8 @@ module testbench;                                // Se define un modulo de prueb
 							.R024h_CPU(R024h_CPU),
 							.R00eh_CPU(R00eh_CPU),
 							.R008h_CPU(R008h_CPU),
-							.R032h_CPU(R032h_CPU)
+							.R032h_CPU(R032h_CPU),
+							.R030h_CPU(R030h_CPU)
 					);
 
   SDHOST SDHOST1 (		.clock(clock),
@@ -52,7 +55,9 @@ module testbench;                                // Se define un modulo de prueb
 						.R008h_CPU(R008h_CPU),
 						.R008h_CPU_out(R008h_CPU_out),
 						.R032h_CPU(R032h_CPU),
-						.R032h_CPU_out(R032h_CPU_out)
+						.R032h_CPU_out(R032h_CPU_out),
+						.R030h_CPU(R030h_CPU),
+						.R030h_CPU_out(R030h_CPU_out)
 						);
 		   
 

@@ -2,7 +2,7 @@
 `include "regs.v"
 
 
-module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, R024h_CPU, R024h_CPU_out, R00eh_CPU, R00eh_CPU_out, R008h_CPU, R008h_CPU_out, R032h_CPU, R032h_CPU_out);
+module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, R024h_CPU, R024h_CPU_out, R00eh_CPU, R00eh_CPU_out, R008h_CPU, R008h_CPU_out, R032h_CPU, R032h_CPU_out, R030h_CPU, R030h_CPU_out);
 	
 	input 		clock;
 	input 		reset;
@@ -15,12 +15,15 @@ module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, R024h_CPU, R024h_
 	input [31:0]    R008h_CPU;
 	input [15:0]    R032h_CPU;
 
+	input [15:0]    R030h_CPU;
+
 	output [127:0] response_outReg;
 
 	output [31:0] 	 R024h_CPU_out;
 	output [15:0]    R00eh_CPU_out;
 	output [31:0]    R008h_CPU_out;
 	output [15:0]    R032h_CPU_out;
+	output [15:0]    R030h_CPU_out;
 
 	wire  		clock;
 	wire		reset;
@@ -55,10 +58,19 @@ module SDHOST(clock, sd_clock, reset, cmd_pin_in, cmd_pin_out, R024h_CPU, R024h_
 	wire [15:0]	R030h_CPU;
 	wire [15:0] R030h_CPU_out;
 
+	assign R032h_CPU_out [11:10]  = 0;
 
+	assign R030h_CPU_out [14:9] = 0;
 
+	assign R024h_CPU_out [31:25]= 0;
 
+	assign R024h_CPU_out [15:12] = 0;
 
+	assign R024h_CPU_out [7:3] = 0;
+
+	assign R00eh_CPU_out [15:14] = 0;
+
+	assign R00eh_CPU_out [2] = 0;
 
 	CMD CMD1 (		.new_command(R024h_CPU_out[0]),
 					.cmd_argument(R008h_CPU_out),

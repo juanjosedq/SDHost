@@ -1,6 +1,6 @@
 `timescale 1 ns / 1 ps
 
-module probador(clock, sd_clock, reset, cmd_pin_in, R024h_CPU, R00eh_CPU, R008h_CPU, R032h_CPU);
+module probador(clock, sd_clock, reset, cmd_pin_in, R024h_CPU, R00eh_CPU, R008h_CPU, R032h_CPU,R030h_CPU);
 
 	output 		clock;
 	output 		reset;
@@ -10,7 +10,8 @@ module probador(clock, sd_clock, reset, cmd_pin_in, R024h_CPU, R00eh_CPU, R008h_
 	output [31:0]    R024h_CPU;
 	output [15:0]    R00eh_CPU;
 	output [31:0]    R008h_CPU;
-	output [15:0]    R032h_CPU;       
+  output [15:0]    R032h_CPU;       
+	output [15:0]    R030h_CPU;       
 
 	reg 		clock;
 	reg 		reset;
@@ -20,7 +21,8 @@ module probador(clock, sd_clock, reset, cmd_pin_in, R024h_CPU, R00eh_CPU, R008h_
 	reg [31:0]    R024h_CPU;
 	reg [15:0]    R00eh_CPU;
 	reg [31:0]    R008h_CPU;
-	reg [15:0]    R032h_CPU;          
+  reg [15:0]    R032h_CPU;          
+	reg [15:0]    R030h_CPU;          
          
 
 
@@ -39,9 +41,12 @@ module probador(clock, sd_clock, reset, cmd_pin_in, R024h_CPU, R00eh_CPU, R008h_
       R00eh_CPU [15:14]= 6'b00;
 
       R008h_CPU [31:0]= 32'hBEBEBEBE;       
-     
+      
       R032h_CPU [15:4]= 12'hFEA;
       R032h_CPU [3:0]= 4'b0001;
+
+      R030h_CPU [15:1]= 15'hFEAE;
+      
 
      #2 reset = 0;
 

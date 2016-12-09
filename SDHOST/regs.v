@@ -1898,8 +1898,7 @@ parameter width = 16;
 input rst;						// reset
 input clk;						// clock
 input enb_block0;
-input enb_block1;				// ENABLE BLOCKS
-input enb_block2;
+
 output 	ack;
 
 input ErrInterrupt_in;
@@ -1999,7 +1998,7 @@ always @(posedge clk) begin
 		// reset
 		data_out <= 32'b0;
 	end
-	else if (enb_block0 ) begin
+	else if (1) begin
 		data_out <= data_in;
 	end
 	else begin
