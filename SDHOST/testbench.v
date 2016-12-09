@@ -1,4 +1,4 @@
-`include "SDHOST.v"
+// `include "SDHOST.v"
 
 module testbench;                                // Se define un modulo de prueba
 
@@ -26,7 +26,7 @@ module testbench;                                // Se define un modulo de prueb
 
   initial begin                             // Bloque que se ejecuta al inicio
      $dumpfile("testbench.vcd");                 // El resultado se guarda en test.vcd
-     .$dumpvars(0,testbench);
+     $dumpvars(0,testbench);
   end
        
 
