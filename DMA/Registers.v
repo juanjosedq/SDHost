@@ -42,3 +42,4 @@ Command_Register[5:0] <=0;
 Command_Register[15:8] <=0;
 end    
 endmodule
+

@@ -63,16 +63,21 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   reg DMA_Interrupt=0; 
   reg ADMA_Error=0; 
   reg Transfer_complete=0;
-  reg Command_Reg_Write_or_Continue=1;    //REVISAR, CUANDO SE DA UNA ESCRITURA EN EL command register?
+  reg Command_Reg_Write_or_Continue;    //REVISAR, CUANDO SE DA UNA ESCRITURA EN EL command register?
   reg [63:0] ADMA_System_Address_Register; // (Offset 058h) 
-  reg [3:0] Present_State=ST_STOP;
-  reg [63:0] SYS_ADR;             //Registros Internos
-  reg [15:0] DAT_LEN;
-  reg [63:0] DAT_ADR;
-  reg Valid, End, Int, Act1, Act2; 
-  reg [1:0] Act;                    //Act corresponde a la unión  de Act1+Act2 (Por simplicidad)
-  reg TFC;
-  reg Tran;
+  reg [3:0] Present_State=ST_STOP; 
+  reg [3:0] Next_State=ST_STOP; 
+  reg [63:0] SYS_ADR=0;             //Registros Internos
+  reg [15:0] DAT_LEN=0;
+  reg [63:0] DAT_ADR=0;
+  reg Valid=1;
+  reg End=0;
+  reg Int=0;
+  reg Act1=0;
+  reg Act2=0; 
+  reg [1:0] Act=0;                    //Act corresponde a la unión  de Act1+Act2 (Por simplicidad)
+  reg TFC=0;
+  reg Tran=0;
   reg [11:0] Transfer_Block_Size; 
   reg Multi_Single_Block_Select;
   reg Data_Transfer_Direction_Select;
@@ -85,14 +90,16 @@ module ADMA(clk, DMA_Interrupt, ADMA_Error, Transfer_complete, Initial_ADMA_Syst
   reg [1:0] Command_Type; 
   reg [3:0] Transfer_Mode_Direction;
 
-
-
 Descriptor_Table  table1   (SYS_ADR, Descriptor_Line);
+
 TipoDeTransferencia t1 (Multi_Single_Block_Select, Block_Count_Enable,Transfer_Type);
 
 
-  always @(*)
-begin
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+always @(*) begin 
+
 Transfer_Block_Size <= Block_Size_Register[11:0];
 Multi_Single_Block_Select<=Transfer_Mode_Register[5];        
 Data_Transfer_Direction_Select<=Transfer_Mode_Register[4];        
@@ -104,8 +111,17 @@ Stop_At_Block_Gap_Request<= Block_Gap_Control_Register[0];
 Continue_Request<= Block_Gap_Control_Register[1];
 Command_Type[0] <= Command_Register[6];
 Command_Type[1] <= Command_Register[7];
+ADMA_System_Address_Register<=SYS_ADR;
 
-Valid <= Descriptor_Line[0];   //Atributos a partir del Descriptor_Line
+Command_Reg_Write_or_Continue<=1;
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////  
+if (Present_State==ST_FDS) begin  
+//Atributos a partir del Descriptor_Line
+Valid <= Descriptor_Line[0];   
 End <= Descriptor_Line[1];
 Int <= Descriptor_Line[2];
 Act1 <= Descriptor_Line[4];
@@ -114,72 +130,174 @@ Act[0] <=Act1;               //Obtengo Act
 Act[1] <=Act2;
 DAT_LEN <= Descriptor_Line[31:16];  //Length y Address
 DAT_ADR <= Descriptor_Line[95:32];
-                        
-ADMA_System_Address_Register<=SYS_ADR;
+end 
 
- case(Present_State)
-	"ST_STOP": begin 
+else begin
+Valid <= Valid;   
+End <= End;
+Int <= Int;
+Act1 <= Act1;
+Act2 <= Act2;
+Act[0] <= Act[0];               
+Act[1] <=Act[1];
+DAT_LEN <= DAT_LEN;  
+DAT_ADR <= DAT_ADR;
+end
+
+///////////////////////////////////
+
+		case(Data_Transfer_Direction_Select)
+		     0: begin 
+			Transfer_Mode_Direction<=HOST_TO_CARD;
+			end
+
+		     1: begin
+			Transfer_Mode_Direction<=CARD_TO_HOST;
+			end 
+
+		     default: begin
+		        Transfer_Mode_Direction<=WAIT; 
+			      end 
+
+		endcase  
+end
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+always @(posedge clk) begin  
+
+case(Present_State)
+	ST_STOP: begin 
 			if(Command_Reg_Write_or_Continue==1) 
 					begin
-					SYS_ADR<=Initial_ADMA_System_Address;
-					ADMA_System_Address_Register<=SYS_ADR;
-					enb_ADMA_System_Address_Register<=1;
-					
-						if(ack_ADMA_System_Address_Register==1)begin
-
-                          			Present_State <= ST_FDS;
-						enb_ADMA_System_Address_Register<=0;
-										       end 
-						else begin
-						Present_State <= ST_STOP;
-						end
-
+                          			Next_State <= ST_FDS;			    
 				        end
 			else	
 					begin
-					SYS_ADR<=Initial_ADMA_System_Address;
-					ADMA_System_Address_Register<=SYS_ADR;
-					enb_ADMA_System_Address_Register<=1;
-					
-						if(ack_ADMA_System_Address_Register==1)begin
-
-                          			Present_State <= ST_STOP;
-						enb_ADMA_System_Address_Register<=0;
-										       end 
-						else begin
-						Present_State <= ST_STOP;
-						end
-					
-
-
-
+                          			Next_State <= ST_STOP;
 					end
 		  end                   
 
         
-       "ST_FDS":  begin
+        ST_FDS:  begin
 		 TFC<=0;
 			     if(Valid==1) 
 					     begin
-					     Present_State <= ST_CADR;
+					     Next_State <= ST_CADR;
 				             end
 			      else	
 					     begin
-					     ADMA_Error <=1;          
-					     DMA_Interrupt <=1; 
-					     enb_DMA_Interrupt<=1;
-  					     enb_ADMA_Error<=1;
-					     if(ack_DMA_Interrupt==1 & enb_ADMA_Error==1) begin
-					     Present_State <= ST_FDS;
-					     enb_DMA_Interrupt<=0;
-  					     enb_ADMA_Error<=0;
-					     end 
-                                             end
-		 end
+					     Next_State <= ST_FDS;
+					    end
+		  end
 
 
-       "ST_CADR":       begin
-			case(Act)  
+       ST_CADR: begin
+			
+			if (Tran==1) begin
+					Next_State <= ST_TFR;
+				     end 
+			else  begin
+
+					if (End==0) begin
+						Next_State <= ST_FDS;
+						end 
+					else begin
+						Next_State <= ST_STOP;
+						end
+
+				end 
+		end
+     ST_TFR:
+
+	        begin 
+	             if(TFC==1 & (End==1 | Stop_At_Block_Gap_Request==1))
+		           Next_State <= ST_STOP;
+	             else 
+		           Next_State <= ST_TFR;	
+
+                 end
+        
+
+         default:   
+	 		Next_State <= ST_STOP;
+         
+      endcase
+end
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+always @(*) begin  
+case(Present_State)
+	ST_STOP: begin 
+			SYS_ADR<=Initial_ADMA_System_Address;
+			ADMA_System_Address_Register<=SYS_ADR;
+			enb_ADMA_System_Address_Register<=1;
+					
+			if(ack_ADMA_System_Address_Register==1)begin
+
+                          Present_State <= Next_State;
+			  enb_ADMA_System_Address_Register<=0;
+			 end 
+
+			else begin
+			  Present_State <= Present_State;
+			     end
+		  end                   
+
+        
+        ST_FDS:  begin
+
+		if(Next_State==ST_FDS)begin
+				        ADMA_Error <=1;          
+					DMA_Interrupt <=1; 
+					enb_DMA_Interrupt<=1;
+  					enb_ADMA_Error<=1;
+					if(ack_DMA_Interrupt==1 & ack_ADMA_Error==1) begin
+						Present_State <= Next_State;
+						enb_DMA_Interrupt<=0;
+  						enb_ADMA_Error<=0;
+					   end 
+					else begin
+						Present_State <= Present_State;
+					  end
+		end 
+
+		else begin
+		Present_State <= Next_State;
+		end
+
+		end
+
+
+        ST_CADR: begin
+				ADMA_Error <=0;          
+				DMA_Interrupt <=0; 
+				ADMA_System_Address_Register<=SYS_ADR;
+				enb_ADMA_System_Address_Register<=1;
+				if(ack_ADMA_System_Address_Register==1)begin
+					Present_State <= Next_State;
+					enb_ADMA_System_Address_Register<=0;
+				end
+				
+				else begin
+			 		 Present_State <= Present_State;
+			        end
+		end
+        ST_TFR:
+	        begin 
+			Present_State <= Next_State;	
+                 end
+
+        default: 
+	 		Present_State <= Present_State;
+      endcase
+end
+////////////////////////////////////////////////////////////////////////////////////
+
+
+always @(posedge clk) begin 
+if(Present_State==ST_CADR)  begin
+		case(Act)  
 				2'b00:  begin   //NOP
 					SYS_ADR <= SYS_ADR+ 8;   
 					Tran=0;
@@ -199,216 +317,20 @@ ADMA_System_Address_Register<=SYS_ADR;
 					SYS_ADR <= DAT_ADR;    
 					Tran=0;
 					end
-				//default: 
+				default: begin
+					SYS_ADR <= SYS_ADR;   
+					Tran<=Tran;
+					 end
          		                  
       				endcase
-			
+end
 
-			if (Tran==1) begin
-				
-				ADMA_System_Address_Register<=SYS_ADR;
-				enb_ADMA_System_Address_Register<=1;
-					
-				if(ack_ADMA_System_Address_Register==1)begin
-
-                          	Present_State <= ST_TFR;
-				enb_ADMA_System_Address_Register<=0;
-								       end 
-				else begin
-				Present_State <= ST_CADR;
-				end
-
-				     end 
-			else    begin
-
-				if (End==0) begin
-					ADMA_System_Address_Register<=SYS_ADR;
-					enb_ADMA_System_Address_Register<=1;
-					
-					if(ack_ADMA_System_Address_Register==1)begin
-
-                          		Present_State <= ST_FDS;
-					enb_ADMA_System_Address_Register<=0;
-								               end 
-					else begin
-					Present_State <= ST_CADR;
-					end
-					   end
-
-				else     begin
-					Present_State <= ST_STOP;
-				
-				         end
-				end 
-                        end
-     "ST_TFR":
-
-	        begin 
-	             if(TFC==1 & (End==1 | Stop_At_Block_Gap_Request==1))
-		           Present_State <= ST_STOP;
-	             else 
-		           Present_State <= ST_TFR;	
-
-                 end
-        
-
-        // default: 
-         
-      endcase
-
-
-
-
-  end
-
-//  output DMA_Interrupt;     //Normal_Interrupt_Status_Register   Offset  030h  bit 3. 
-//  output ADMA_Error;        //Error Interrupt Status Register    Offset 032h bit 9.
-//  output Transfer_complete; //Normal_Interrupt_Status_Register   Offset  030h  bit 1.
-
-//  reg [15:0] DAT_LEN;
-//  reg [63:0] DAT_ADR;
-//  reg TFC;
-
-
-//  reg [11:0] Transfer_Block_Size; 
- 
-//  reg Stop_At_Block_Gap_Request;
-//  reg Continue_Request;
-
-
-
-always @(*) begin
-	if (Present_State==ST_TFR) begin   
-
-	 	case(Data_Transfer_Direction_Select)
-		     0: begin 
-			Transfer_Mode_Direction<=HOST_TO_CARD;
-			
-			end
-		     1: begin
-			Transfer_Mode_Direction<=CARD_TO_HOST;
-			end 
-
-		     default: begin
-		        Transfer_Mode_Direction<=WAIT; 
-			      end 
-
-		endcase  
-
-	          //   if(TFC==1 & (End==1 | Stop_At_Block_Gap_Request==1))
-		  //         Present_State <= ST_STOP;
-	          //   else 
-		  //         Present_State <= ST_TFR;	
-
-
-
-       case(Transfer_Mode_Direction)
-		"HOST_TO_CARD": begin
-			
-	case(Transfer_Type)
-			"Single_Transfer":	begin
-						if(Write_Transfer_Active==1)begin
- 		   							//TRANSFERENCIA		
-	
-								     end
-						else   begin                   
- 	      					    Transfer_Type<= Single_Transfer;								      
-                					end
-
-					end
-			
-			"Multiple_Transfer":    begin
-						if(Write_Transfer_Active==1)begin
- 		   							//TRASFERENCIA2		
-								     end
-						else   begin                   //Write_Transfer_Active==0
-			 	   			     Transfer_Type<= Stop_Multiple_Transfer;		
-                					end
-					end
-
-			"Stop_Multiple_Transfer":begin
-					if (Stop_At_Block_Gap_Request==0 & Continue_Request==1) begin
-						Transfer_Type<=Multiple_Transfer;		
-												end				
-					else begin
-						Transfer_Type<=Stop_Multiple_Transfer;
-					     end
-
-					end
-
-//					default:
-					
-	endcase			
-
-				end 
-	"CARD_TO_HOST": begin
-
-			
-		case(Transfer_Type)
-		"Single_Transfer":	begin
-					
-					if(Read_Transfer_Active==1)begin
- 		   							//AGREGAR ACCIÓN  5		
-
-								     end
-						else   begin                   //Read_Transfer_Active==0
- 	      							       //AGREGAR ACCIÓN 6
-                					end
-
-					end
-			
-		"Multiple_Transfer":    begin
-					if(Read_Transfer_Active==1)begin
-			   							//AGREGAR ACCIÓN  5		
-
-								     end
-						else   begin                   //Read_Transfer_Active==0
-			 	      							       //AGREGAR ACCIÓN 6
-                					end
-					end
-
-		"Stop_Multiple_Transfer":begin
-					if (Stop_At_Block_Gap_Request==0 & Continue_Request==1) begin
-						Transfer_Type<=Multiple_Transfer;		
-												end				
-					else begin
-						Transfer_Type<=Stop_Multiple_Transfer;
-					     end
-
-					end
-
-//					default:
-					
-		endcase			
-
-		end 
-
-		"WAIT": begin
-							case(Transfer_Type)
-			"Single_Transfer":	begin
-								
-								end
-			
-			"Multiple_Transfer":    begin
-								
-								end
-
-			"Stop_Multiple_Transfer":begin
-								 
-								end
-
-//					default:
-					
-							endcase			
-					
-
-			end 
-
-
-
-		endcase
-
-	end 
+ else begin
+ SYS_ADR <= SYS_ADR;   
+ Tran<=Tran;
+ end
+end
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
       
 endmodule 

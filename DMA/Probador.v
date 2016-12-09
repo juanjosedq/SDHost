@@ -17,18 +17,20 @@ reg ack_Transfer_complete;
 reg ack_ADMA_System_Address_Register;
 
 initial begin
-   ack_DMA_Interrupt=0;
-   ack_ADMA_Error=0;
-   ack_Transfer_complete=0;
-   ack_ADMA_System_Address_Register=0;
+   ack_DMA_Interrupt=1;
+   ack_ADMA_Error=1;
+   ack_Transfer_complete=1;
+   ack_ADMA_System_Address_Register=1;
    clk=0;
    Initial_ADMA_System_Address=1; 
    #1000 $finish;
+   
 
    end
 
    always #100 clk <= !clk;
-   always #500 ack <= !ack;
+  
+   
   
 endmodule 
 
