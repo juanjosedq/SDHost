@@ -207,6 +207,8 @@ module control_capa_fisica(strobe_in, ack_in, idle_in, no_response, pad_response
 	     ack_out <= 1;
 	     next_state <= idle;
 	  end
+
+	default: next_state <= reset_state;
 	
       endcase // case (state)
       
