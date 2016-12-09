@@ -12,12 +12,14 @@ module asynchronous_fifo
 	output reg			    ack_write); // FIXME falta definir esta bandera 
 	parameter    DATA_WIDTH    = 32;
         parameter    FIFO_length = 1024;
+
 	//states	
 	parameter reset = 0;
 	parameter idle = 4'b0001;
 	parameter info_onFIFO = 4'b0010;
 	parameter write_state = 4'b0100;
 	parameter read_state = 4'b1000;
+
 	reg [3:0]state = 0;
 	wire [39:0] cuarenta_bits;
 	reg [FIFO_length -1: 0] buffer;
