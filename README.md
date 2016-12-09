@@ -12,7 +12,9 @@ explained below:
 -CMD:This folder contains the files .v and makefile
 	  necessary to compile this module.
 
--Register: 
+-REGSET: Contains both synthesized and behavioral codes with their
+	 own testbench. "Make" in each folder to open 
+	 GTKWAVE graphs with verfication
 
 -Dat: 
 
