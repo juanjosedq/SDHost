@@ -16,9 +16,11 @@ explained below:
 	 own testbench. "Make" in each folder to open 
 	 GTKWAVE graphs with verfication
 
--Dat: 
+-Dat: This folder contains the files .v and makefile
+	  necessary to compile this module.
 
 -DMA: This folder contains the files .v and makefile
 	  necessary to compile this module.
 
--SDHOST: 	
+-SDHOST: This folder contains the files .v and makefile
+	  necessary to compile this module.	
