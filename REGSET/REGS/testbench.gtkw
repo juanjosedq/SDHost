@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
-[*] Fri Dec  9 23:18:51 2016
+[*] Sat Dec 10 03:42:46 2016
 [*]
-[dumpfile] "/home/joschinc/Documents/REGSET/testbench.vcd"
-[dumpfile_mtime] "Fri Dec  9 23:18:46 2016"
-[dumpfile_size] 3865
-[savefile] "/home/joschinc/Documents/REGSET/testbench.gtkw"
-[timestart] 11100
+[dumpfile] "/home/joschinc/Documents/gitfinal/SDHost/REGSET/REGS/testbench.vcd"
+[dumpfile_mtime] "Sat Dec 10 03:42:31 2016"
+[dumpfile_size] 4181
+[savefile] "/home/joschinc/Documents/gitfinal/SDHost/REGSET/REGS/testbench.gtkw"
+[timestart] 0
 [size] 1436 671
-[pos] 248 221
-*-13.814562 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[pos] 496 415
+*-14.229605 53520 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] testbench.
 [sst_width] 213
 [signals_width] 246

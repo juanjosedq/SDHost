@@ -51,7 +51,7 @@ initial begin
 	enb_block1 = 0;
 	enb_block2 = 0;
 
-	CommandIndex_in  = 5'b10110;
+	CommandIndex_in  = 5'b11110;
 	CommandType_in  = 2'b10;
 	DataPresentState_in  = 1;
 	CommandIndezCheckEnable_in  = 0;		// DATA IN
@@ -66,11 +66,11 @@ initial begin
 	enb_block2 = 0;
 
 	CommandIndex_in  = 5'b10110;
-	CommandType_in  = 2'b10;
-	DataPresentState_in  = 1;
-	CommandIndezCheckEnable_in  = 0;		// DATA IN
-	CommandCRCCheckEnable_in  = 1;
-	ResponseTypeSelect_in  = 2'b01;
+	CommandType_in  = 2'b11;
+	DataPresentState_in  = 0;
+	CommandIndezCheckEnable_in  = 1;		// DATA IN
+	CommandCRCCheckEnable_in  = 0;
+	ResponseTypeSelect_in  = 2'b11;
 
 	#15 reset=0;
 
@@ -78,8 +78,8 @@ initial begin
 	enb_block1 = 0;
 	enb_block2 = 0;
 
-	CommandIndex_in  = 5'b10110;
-	CommandType_in  = 2'b10;
+	CommandIndex_in  = 5'b10111;
+	CommandType_in  = 2'b01;
 	DataPresentState_in  = 1;
 	CommandIndezCheckEnable_in  = 0;		// DATA IN
 	CommandCRCCheckEnable_in  = 1;
@@ -91,12 +91,12 @@ initial begin
 	enb_block1 = 1;
 	enb_block2 = 0;
 
-	CommandIndex_in  = 5'b10110;
-	CommandType_in  = 2'b10;
+	CommandIndex_in  = 5'b11111;
+	CommandType_in  = 2'b11;
 	DataPresentState_in  = 1;
-	CommandIndezCheckEnable_in  = 0;		// DATA IN
+	CommandIndezCheckEnable_in  = 1;		// DATA IN
 	CommandCRCCheckEnable_in  = 1;
-	ResponseTypeSelect_in  = 2'b01;
+	ResponseTypeSelect_in  = 2'b11;
 
 	#15
 
@@ -105,17 +105,17 @@ initial begin
 	enb_block2 = 0;
 
 
-	CommandIndex_in  = 5'b10000;
-	CommandType_in  = 2'b11;
+	CommandIndex_in  = 5'b10010;
+	CommandType_in  = 2'b00;
 	DataPresentState_in  = 0;
-	CommandIndezCheckEnable_in  = 1;		// DATA IN
+	CommandIndezCheckEnable_in  = 0;		// DATA IN
 	CommandCRCCheckEnable_in  = 0;
-	ResponseTypeSelect_in  = 2'b11;
+	ResponseTypeSelect_in  = 2'b00;
 
 	#15
 
-	CommandIndex_in  = 5'b10100;
-	CommandType_in  = 2'b00;
+	CommandIndex_in  = 5'b10101;
+	CommandType_in  = 2'b01;
 	DataPresentState_in  = 1;
 	CommandIndezCheckEnable_in  = 1;		// DATA IN
 	CommandCRCCheckEnable_in  = 0;
