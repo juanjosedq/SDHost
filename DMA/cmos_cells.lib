@@ -1,0 +1,35 @@
+library(demo) {
+cell(BUF)
+{
+area: 6;
+pin(A) { direction: input; }
+pin(Y) { direction: output;
+function: "A"; }
+}
+cell(NOT)
+{
+area: 3;
+pin(A) { direction: input; }
+pin(Y) { direction: output;
+function: "A'"; }
+}
+cell(NAND)
+{
+area: 4;
+pin(A) { direction: input; }
+pin(B) { direction: input; }
+pin(Y) { direction: output;
+function: "(A*B)'"; }
+}
+cell(NOR)
+{
+area: 4;
+pin(A) { direction: input; }
+pin(B) { direction: input; }
+pin(Y) { direction: output;
+function: "(A+B)'"; }
+}
+/* resto de la 
+biblioteca
+*/
+}

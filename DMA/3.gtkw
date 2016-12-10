@@ -1,0 +1,35 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Dec 10 04:45:55 2016
+[*]
+[dumpfile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/testbench.vcd"
+[dumpfile_mtime] "Sat Dec 10 04:41:24 2016"
+[dumpfile_size] 41219
+[savefile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/3.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -117
+*-17.467714 500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fifo_testbench.
+[sst_width] 223
+[signals_width] 302
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@28
+fifo_testbench.adma1.Act1
+fifo_testbench.adma1.Act2
+fifo_testbench.adma1.Act[1:0]
+@22
+fifo_testbench.adma1.Present_State[3:0]
+@28
+fifo_testbench.adma1.Valid
+fifo_testbench.adma1.clk
+@22
+fifo_testbench.adma1.DAT_ADR[63:0]
+fifo_testbench.adma1.DAT_LEN[15:0]
+@23
+fifo_testbench.adma1.SYS_ADR[63:0]
+@22
+fifo_testbench.adma1.ADMA_System_Address_Register[63:0]
+[pattern_trace] 1
+[pattern_trace] 0

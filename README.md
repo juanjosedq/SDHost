@@ -18,6 +18,7 @@ explained below:
 
 -Dat: 
 
--DMA: 
+-DMA: This folder contains the files .v and makefile
+	  necessary to compile this module.
 
 -SDHOST: 	
