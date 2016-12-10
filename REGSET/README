@@ -1,0 +1,2 @@
+REGS contain the behavioral code that can be checked with a simple "make" to display GTKWAVE signals and waves.
+SYNTH contains the code worked with yosys that can also be checked with the make command.

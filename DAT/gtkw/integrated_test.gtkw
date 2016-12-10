@@ -1,0 +1,27 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Dec 10 03:23:24 2016
+[*]
+[dumpfile] "/home/ubuntu/Downloads/Trabajo final/SDHost-master/DAT/testbench_int.vcd"
+[dumpfile_mtime] "Sat Dec 10 03:19:51 2016"
+[dumpfile_size] 80169
+[savefile] "/home/ubuntu/Downloads/Trabajo final/SDHost-master/DAT/integrated_test.gtkw"
+[timestart] 0
+[size] 1301 744
+[pos] -1 -1
+*-6.000000 0 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench_int.
+[sst_width] 223
+[signals_width] 158
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@22
+testbench_int.buffer_out[31:0]
+testbench_int.card_in[3:0]
+@28
+testbench_int.mode
+testbench_int.FIFO.RClk
+@29
+testbench_int.FIFO.WClk
+[pattern_trace] 1
+[pattern_trace] 0

@@ -1,0 +1,2 @@
+Para ver los resultados solo hace falta realizar un make.
+Si se quiere comprobar la sintesis se requiere agregar `include "cmos_cells.v" al inicio del archivo sintetizado por yosys y luego hacer make.

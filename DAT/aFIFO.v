@@ -9,17 +9,16 @@ module asynchronous_fifo
 	output reg                          Full_out, //almost full signal
 	input wire                          WriteEn_in,
 	input wire                          WClk,
-	output reg			    ack_write); // FIXME falta definir esta bandera 
+	output reg			    ack_write, // FIXME falta definir esta bandera 
+	output reg 			    ready); 
 	parameter    DATA_WIDTH    = 32;
         parameter    FIFO_length = 1024;
-
 	//states	
 	parameter reset = 0;
 	parameter idle = 4'b0001;
 	parameter info_onFIFO = 4'b0010;
 	parameter write_state = 4'b0100;
 	parameter read_state = 4'b1000;
-
 	reg [3:0]state = 0;
 	wire [39:0] cuarenta_bits;
 	reg [FIFO_length -1: 0] buffer;
@@ -34,6 +33,8 @@ module asynchronous_fifo
 					Data_out <= 0;
 					count <= 0;
 					buffer <= 0;
+					ready <= 0;
+					ack_write <= 0;
 				end	
 				
 			reset:
@@ -42,11 +43,14 @@ module asynchronous_fifo
 					Data_out <= 0;
 					count <= 0;
 					buffer <= 0;
+					ready <= 0;
+					ack_write <= 0;
 				end	
 			idle:	
 				begin
 					if (WriteEn_in) begin
 						state <= write_state;
+						ready <= 1;
 					end else begin
 						state <= idle;
 					end
@@ -54,11 +58,13 @@ module asynchronous_fifo
 			write_state:
 				begin 
 					count <= count + DATA_WIDTH;
+					ready <= 1;
 					buffer <= {buffer[FIFO_length - DATA_WIDTH - 1: 0], Data_in};
 					if(!WriteEn_in || Full_out) begin
 						state <= idle;					
 					end else begin
 						state <= write_state;
+						ack_write <= 1;
  		
 					end
 				end	
@@ -68,6 +74,7 @@ module asynchronous_fifo
 	always@ (posedge RClk) begin
 		if(ReadEn_in && !Empty_out) begin
 			Data_out <= buffer[count - 1 -: DATA_WIDTH];
+			
 		end
 	end
 

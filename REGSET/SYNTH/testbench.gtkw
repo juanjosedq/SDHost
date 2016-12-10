@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.66 (w)1999-2015 BSI
+[*] Fri Dec  9 23:58:38 2016
+[*]
+[dumpfile] "/home/joschinc/Documents/REGSET/SYNTH/testbench.vcd"
+[dumpfile_mtime] "Fri Dec  9 23:56:47 2016"
+[dumpfile_size] 25018
+[savefile] "/home/joschinc/Documents/REGSET/SYNTH/testbench.gtkw"
+[timestart] 0
+[size] 1326 642
+[pos] 81 81
+*-14.409766 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[sst_width] 213
+[signals_width] 246
+[sst_expanded] 1
+[sst_vpaned_height] 166
+@28
+testbench.clock
+testbench.reset
+testbench.ack
+testbench.enb_block0
+testbench.enb_block1
+testbench.enb_block2
+testbench.CommandCRCCheckEnable_in
+testbench.CommandCRCCheckEnable_out
+@22
+testbench.CommandIndex_in[4:0]
+testbench.CommandIndex_out[4:0]
+@28
+testbench.CommandIndezCheckEnable_in
+testbench.CommandIndezCheckEnable_out
+testbench.CommandType_in[1:0]
+testbench.CommandType_out[1:0]
+testbench.DataPresentState_in
+testbench.DataPresentState_out
+testbench.ResponseTypeSelect_in[1:0]
+testbench.ResponseTypeSelect_out[1:0]
+@23
+testbench.reg0.data_in[15:0]
+@22
+testbench.reg0.data_out[15:0]
+[pattern_trace] 1
+[pattern_trace] 0
