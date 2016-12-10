@@ -46,7 +46,7 @@ module probador (new_command, clock, reset, cmd_argument, cmd_index, timeout_ena
      #30 new_command = 1;
 
      #400
-     #20 ack_response = 1;
+     #800 ack_response = 1;
      #20 ack_command_complete = 1;
      
 
