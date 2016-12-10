@@ -1,0 +1,7 @@
+read_verilog -sv regs.v
+hierarchy; proc; fsm; opt; memory; opt;
+techmap; opt
+dfflibmap -liberty cmos_cells.lib
+abc -liberty cmos_cells.lib
+clean
+write_verilog -noattr sintetizado.v
