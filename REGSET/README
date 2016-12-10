@@ -1,0 +1,1 @@
+REGS contain the behavioral code that can be checked with a simple "make" to display GTKWAVE signals and waves
