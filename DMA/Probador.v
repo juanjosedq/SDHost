@@ -23,7 +23,7 @@ initial begin
    ack_ADMA_System_Address_Register=1;
    clk=0;
    Initial_ADMA_System_Address=1; 
-   #1000 $finish;
+   #400 $finish;
    
 
    end

@@ -117,7 +117,7 @@ wire Permiso_Transf;
 	#5	enable_read2 = 0;
 	#30	enable_read2 = 1;
 
-   #200 $finish;
+   #400 $finish;
    end
 
 probador p1 (clk, Initial_ADMA_System_Address, ack_DMA_Interrupt, ack_ADMA_Error, ack_Transfer_complete, ack_ADMA_System_Address_Register);

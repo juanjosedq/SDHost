@@ -1,0 +1,143 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Dec 10 04:08:40 2016
+[*]
+[dumpfile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/testbench.vcd"
+[dumpfile_mtime] "Sat Dec 10 03:24:37 2016"
+[dumpfile_size] 39042
+[savefile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/FDS.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -143 90
+*-18.000000 100000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fifo_testbench.
+[treeopen] fifo_testbench.adma1.
+[sst_width] 223
+[signals_width] 302
+[sst_expanded] 1
+[sst_vpaned_height] 160
+@c00022
+fifo_testbench.adma1.Descriptor_Line[95:0]
+@28
+(0)fifo_testbench.adma1.Descriptor_Line[95:0]
+(1)fifo_testbench.adma1.Descriptor_Line[95:0]
+(2)fifo_testbench.adma1.Descriptor_Line[95:0]
+(3)fifo_testbench.adma1.Descriptor_Line[95:0]
+(4)fifo_testbench.adma1.Descriptor_Line[95:0]
+(5)fifo_testbench.adma1.Descriptor_Line[95:0]
+(6)fifo_testbench.adma1.Descriptor_Line[95:0]
+(7)fifo_testbench.adma1.Descriptor_Line[95:0]
+(8)fifo_testbench.adma1.Descriptor_Line[95:0]
+(9)fifo_testbench.adma1.Descriptor_Line[95:0]
+(10)fifo_testbench.adma1.Descriptor_Line[95:0]
+(11)fifo_testbench.adma1.Descriptor_Line[95:0]
+(12)fifo_testbench.adma1.Descriptor_Line[95:0]
+(13)fifo_testbench.adma1.Descriptor_Line[95:0]
+(14)fifo_testbench.adma1.Descriptor_Line[95:0]
+(15)fifo_testbench.adma1.Descriptor_Line[95:0]
+(16)fifo_testbench.adma1.Descriptor_Line[95:0]
+(17)fifo_testbench.adma1.Descriptor_Line[95:0]
+(18)fifo_testbench.adma1.Descriptor_Line[95:0]
+(19)fifo_testbench.adma1.Descriptor_Line[95:0]
+(20)fifo_testbench.adma1.Descriptor_Line[95:0]
+(21)fifo_testbench.adma1.Descriptor_Line[95:0]
+(22)fifo_testbench.adma1.Descriptor_Line[95:0]
+(23)fifo_testbench.adma1.Descriptor_Line[95:0]
+(24)fifo_testbench.adma1.Descriptor_Line[95:0]
+(25)fifo_testbench.adma1.Descriptor_Line[95:0]
+(26)fifo_testbench.adma1.Descriptor_Line[95:0]
+(27)fifo_testbench.adma1.Descriptor_Line[95:0]
+(28)fifo_testbench.adma1.Descriptor_Line[95:0]
+(29)fifo_testbench.adma1.Descriptor_Line[95:0]
+(30)fifo_testbench.adma1.Descriptor_Line[95:0]
+(31)fifo_testbench.adma1.Descriptor_Line[95:0]
+(32)fifo_testbench.adma1.Descriptor_Line[95:0]
+(33)fifo_testbench.adma1.Descriptor_Line[95:0]
+(34)fifo_testbench.adma1.Descriptor_Line[95:0]
+(35)fifo_testbench.adma1.Descriptor_Line[95:0]
+(36)fifo_testbench.adma1.Descriptor_Line[95:0]
+(37)fifo_testbench.adma1.Descriptor_Line[95:0]
+(38)fifo_testbench.adma1.Descriptor_Line[95:0]
+(39)fifo_testbench.adma1.Descriptor_Line[95:0]
+(40)fifo_testbench.adma1.Descriptor_Line[95:0]
+(41)fifo_testbench.adma1.Descriptor_Line[95:0]
+(42)fifo_testbench.adma1.Descriptor_Line[95:0]
+(43)fifo_testbench.adma1.Descriptor_Line[95:0]
+(44)fifo_testbench.adma1.Descriptor_Line[95:0]
+(45)fifo_testbench.adma1.Descriptor_Line[95:0]
+(46)fifo_testbench.adma1.Descriptor_Line[95:0]
+(47)fifo_testbench.adma1.Descriptor_Line[95:0]
+(48)fifo_testbench.adma1.Descriptor_Line[95:0]
+(49)fifo_testbench.adma1.Descriptor_Line[95:0]
+(50)fifo_testbench.adma1.Descriptor_Line[95:0]
+(51)fifo_testbench.adma1.Descriptor_Line[95:0]
+(52)fifo_testbench.adma1.Descriptor_Line[95:0]
+(53)fifo_testbench.adma1.Descriptor_Line[95:0]
+(54)fifo_testbench.adma1.Descriptor_Line[95:0]
+(55)fifo_testbench.adma1.Descriptor_Line[95:0]
+(56)fifo_testbench.adma1.Descriptor_Line[95:0]
+(57)fifo_testbench.adma1.Descriptor_Line[95:0]
+(58)fifo_testbench.adma1.Descriptor_Line[95:0]
+(59)fifo_testbench.adma1.Descriptor_Line[95:0]
+(60)fifo_testbench.adma1.Descriptor_Line[95:0]
+(61)fifo_testbench.adma1.Descriptor_Line[95:0]
+(62)fifo_testbench.adma1.Descriptor_Line[95:0]
+(63)fifo_testbench.adma1.Descriptor_Line[95:0]
+(64)fifo_testbench.adma1.Descriptor_Line[95:0]
+(65)fifo_testbench.adma1.Descriptor_Line[95:0]
+(66)fifo_testbench.adma1.Descriptor_Line[95:0]
+(67)fifo_testbench.adma1.Descriptor_Line[95:0]
+(68)fifo_testbench.adma1.Descriptor_Line[95:0]
+(69)fifo_testbench.adma1.Descriptor_Line[95:0]
+(70)fifo_testbench.adma1.Descriptor_Line[95:0]
+(71)fifo_testbench.adma1.Descriptor_Line[95:0]
+(72)fifo_testbench.adma1.Descriptor_Line[95:0]
+(73)fifo_testbench.adma1.Descriptor_Line[95:0]
+(74)fifo_testbench.adma1.Descriptor_Line[95:0]
+(75)fifo_testbench.adma1.Descriptor_Line[95:0]
+(76)fifo_testbench.adma1.Descriptor_Line[95:0]
+(77)fifo_testbench.adma1.Descriptor_Line[95:0]
+(78)fifo_testbench.adma1.Descriptor_Line[95:0]
+(79)fifo_testbench.adma1.Descriptor_Line[95:0]
+(80)fifo_testbench.adma1.Descriptor_Line[95:0]
+(81)fifo_testbench.adma1.Descriptor_Line[95:0]
+(82)fifo_testbench.adma1.Descriptor_Line[95:0]
+(83)fifo_testbench.adma1.Descriptor_Line[95:0]
+(84)fifo_testbench.adma1.Descriptor_Line[95:0]
+(85)fifo_testbench.adma1.Descriptor_Line[95:0]
+(86)fifo_testbench.adma1.Descriptor_Line[95:0]
+(87)fifo_testbench.adma1.Descriptor_Line[95:0]
+(88)fifo_testbench.adma1.Descriptor_Line[95:0]
+(89)fifo_testbench.adma1.Descriptor_Line[95:0]
+(90)fifo_testbench.adma1.Descriptor_Line[95:0]
+(91)fifo_testbench.adma1.Descriptor_Line[95:0]
+(92)fifo_testbench.adma1.Descriptor_Line[95:0]
+(93)fifo_testbench.adma1.Descriptor_Line[95:0]
+(94)fifo_testbench.adma1.Descriptor_Line[95:0]
+(95)fifo_testbench.adma1.Descriptor_Line[95:0]
+@1401200
+-group_end
+@22
+fifo_testbench.adma1.Present_State[3:0]
+@28
+fifo_testbench.adma1.clk
+@22
+fifo_testbench.adma1.SYS_ADR[63:0]
+@28
+fifo_testbench.adma1.End
+fifo_testbench.adma1.Int
+fifo_testbench.adma1.Act1
+fifo_testbench.adma1.Act2
+fifo_testbench.adma1.Act[1:0]
+fifo_testbench.adma1.Valid
+@22
+fifo_testbench.adma1.DAT_ADR[63:0]
+fifo_testbench.adma1.DAT_LEN[15:0]
+@28
+fifo_testbench.adma1.DMA_Eneable
+@22
+fifo_testbench.adma1.ADMA_System_Address_Register[63:0]
+@28
+fifo_testbench.adma1.Command_Reg_Write_or_Continue
+[pattern_trace] 1
+[pattern_trace] 0

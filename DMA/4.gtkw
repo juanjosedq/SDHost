@@ -1,0 +1,48 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Dec 10 05:46:40 2016
+[*]
+[dumpfile] "/home/leonardo/ULTIMOPLATAFORMAS/SDHost-master/DMA/testbench.vcd"
+[dumpfile_mtime] "Sat Dec 10 05:40:34 2016"
+[dumpfile_size] 39042
+[savefile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/4.gtkw"
+[timestart] 188790
+[size] 1301 744
+[pos] -1 -1
+*-12.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fifo_testbench.
+[sst_width] 223
+[signals_width] 182
+[sst_expanded] 1
+[sst_vpaned_height] 211
+@22
+fifo_testbench.FIFO.Data_in[31:0]
+fifo_testbench.FIFO.Data_out[31:0]
+@28
+fifo_testbench.FIFO.Empty_out
+fifo_testbench.FIFO.Full_out
+fifo_testbench.FIFO.RClk
+fifo_testbench.FIFO.ReadEn_in
+fifo_testbench.FIFO.WClk
+fifo_testbench.FIFO.WriteEn_in
+@22
+fifo_testbench.FIFO.buffer[1023:0]
+fifo_testbench.FIFO.count[10:0]
+fifo_testbench.FIFO.cuarenta_bits[39:0]
+fifo_testbench.FIFO.state[3:0]
+fifo_testbench.FIFO2.Data_in[31:0]
+fifo_testbench.FIFO2.Data_out[31:0]
+@28
+fifo_testbench.FIFO2.Empty_out
+fifo_testbench.FIFO2.Full_out
+fifo_testbench.FIFO2.RClk
+fifo_testbench.FIFO2.ReadEn_in
+fifo_testbench.FIFO2.WClk
+fifo_testbench.FIFO2.WriteEn_in
+@22
+fifo_testbench.FIFO2.buffer[1023:0]
+fifo_testbench.FIFO2.count[10:0]
+fifo_testbench.FIFO2.cuarenta_bits[39:0]
+fifo_testbench.FIFO2.state[3:0]
+[pattern_trace] 1
+[pattern_trace] 0

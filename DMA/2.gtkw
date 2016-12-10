@@ -1,0 +1,44 @@
+[*]
+[*] GTKWave Analyzer v3.3.58 (w)1999-2014 BSI
+[*] Sat Dec 10 04:37:37 2016
+[*]
+[dumpfile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/testbench.vcd"
+[dumpfile_mtime] "Sat Dec 10 04:15:23 2016"
+[dumpfile_size] 39021
+[savefile] "/home/leonardo/ProyectoFINAL/SDHost-master/DMA/2.gtkw"
+[timestart] 0
+[size] 1146 600
+[pos] 154 -1
+*-17.000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] fifo_testbench.
+[sst_width] 223
+[signals_width] 302
+[sst_expanded] 1
+[sst_vpaned_height] 160
+@22
+fifo_testbench.adma1.Descriptor_Line[95:0]
+fifo_testbench.adma1.Present_State[3:0]
+@28
+fifo_testbench.adma1.clk
+@22
+fifo_testbench.adma1.SYS_ADR[63:0]
+@28
+fifo_testbench.adma1.End
+fifo_testbench.adma1.Int
+fifo_testbench.adma1.Act1
+fifo_testbench.adma1.Act2
+fifo_testbench.adma1.Act[1:0]
+fifo_testbench.adma1.Valid
+@22
+fifo_testbench.adma1.DAT_ADR[63:0]
+fifo_testbench.adma1.DAT_LEN[15:0]
+@28
+fifo_testbench.adma1.DMA_Eneable
+fifo_testbench.adma1.DMA_Interrupt
+fifo_testbench.adma1.ADMA_Error
+@22
+fifo_testbench.adma1.ADMA_System_Address_Register[63:0]
+@29
+fifo_testbench.adma1.Command_Reg_Write_or_Continue
+[pattern_trace] 1
+[pattern_trace] 0
