@@ -16,8 +16,9 @@ module serial_n (parallel, serial, sd_clock, enable, reset, complete);
 	wire sd_clock;
 	//wire [7:0]framesize
 
-	reg [n-1:0] parallel;
+	reg [n-1:0] parallel = 0;
 	reg         complete;
+	reg initial_enable = 0;
 
 	integer count = 0;
 	parameter n = 32;	
@@ -26,9 +27,11 @@ module serial_n (parallel, serial, sd_clock, enable, reset, complete);
 		begin
 			if (reset) begin
 				parallel [n-1:0] <= 0;
+				initial_enable = 0;
 			end else begin
 				if (enable) begin
 					parallel [n-1-count] <= serial;
+					initial_enable = 0;
 				end else begin
 					 parallel <= parallel;
 				end
@@ -42,6 +45,7 @@ module serial_n (parallel, serial, sd_clock, enable, reset, complete);
 					count = (count + 1);
 				end else begin
 					count = 0;
+					initial_enable = 0;
 				end 
 			end	
 		end

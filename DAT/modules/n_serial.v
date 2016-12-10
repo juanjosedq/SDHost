@@ -22,7 +22,7 @@ module n_serial (enable, parallel, serial, complete, reset, sd_clock, load_send)
 
 	integer count = 0;		
 	parameter n = 32;
-	reg [n-1 : 0] parallel_cargado;
+	reg [n-1 : 0] parallel_cargado = 0;
 
 
 	always @ (posedge sd_clock)

@@ -1,6 +1,5 @@
 `include "communication.v"
 
-//version 29 dic
 module DAT (	buffer_in, 
 		buffer_out, 
 		card_in, 
@@ -23,7 +22,7 @@ module DAT (	buffer_in,
 parameter vector_width = 10;			//reg_vector has inputs with information coming from registers
 input wire [31:0] buffer_in;
 input wire [10:0] block_amount;
-input wire [vector_width - 1 :0] reg_vector;
+
 
 //there will be a specific index for reach element of the array
 //in reg_vector, set with parameters with a +20 offset
@@ -32,7 +31,7 @@ input wire [vector_width - 1 :0] reg_vector;
 input [3:0] card_in;
 output wire [3:0] card_out;			
 output wire [31:0] buffer_out;
-input wire clk, fifo_ack_i, card_ack_i, sd_clk, fifo_full, fifo_empty, reset_input, fifo_ready, mode, direction;	
+input wire clk, fifo_ack_i, card_ack_i, fifo_full, fifo_empty, reset_input, fifo_ready, mode, direction;	
 output wire fifo_ack_o, card_ack_o;
 output reg fifo_enable_o = 0;	
 

@@ -14,9 +14,9 @@ module m_n(parallel, serial, sd_clock, enable, reset, complete);
 	wire reset;
 	wire sd_clock;
 
-	reg [n-1:0] parallel;
+	reg [n-1:0] parallel  = 0;
 	reg         complete;
-
+	reg initial_enable = 0;
 	integer count = 0;
 	parameter n = 32;	
 	parameter m = 4;
@@ -24,9 +24,11 @@ module m_n(parallel, serial, sd_clock, enable, reset, complete);
 		begin
 			if (reset) begin
 				parallel <= 0;
+				initial_enable = 0;
 			end else begin
 				if (enable) begin
 					parallel [n-1-count*m -: m] <= serial;
+					initial_enable = 1;
 				end else begin
 					 parallel <= parallel;
 				end
@@ -36,10 +38,11 @@ module m_n(parallel, serial, sd_clock, enable, reset, complete);
 	always @ (negedge sd_clock)
 		begin
 			if(enable) begin
-				if(count != n/m-1) begin
+				if(count != n/m-1 && initial_enable) begin
 					count = (count + 1);
 				end else begin
 					count = 0;
+					initial_enable = 0;
 				end 
 			end	
 		end

@@ -35,8 +35,7 @@ module communication(	buffer_o,
 	wire [3:0] card_o_s_i;
 	input [31:0] buffer_i;
 	input [3:0] card_i;
-	input clk, trans_enable, mode, sd_clk, direction; //mode = 1, multi block    
-	input [9:0]reg_vector;
+	input clk, trans_enable, mode, direction; //mode = 1, multi block    
 	//local registers
 	reg [9:0] data_count = 0;
 	reg reset = 0; //FIXME
