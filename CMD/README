@@ -1,3 +1,5 @@
 Este Readme explica como compilar los bloques pertenecientes al CMD.
 
+Cada una de las partes del CMD se encuentra en una carpeta con su respectivo testbench y provador, por lo que solo es necesario ejecutar el Makefile que posee cada carpeta para ver los resultados de cada parte del CMD.
 
+La carpeta CMD es el bloque final y la carpeta capa_fisica es un bloque que instancia los 2 wrappers, el pad y el control de capa física.
